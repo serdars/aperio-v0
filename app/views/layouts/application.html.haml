@@ -1,0 +1,12 @@
+!!! 5
+%html
+  %head
+    %title
+      Aperio
+    = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = csrf_meta_tags
+    <!-- Display well on mobile -->
+    %meta{"name" => "viewport", "content" => "initial-scale=1.0, user-scalable=no"}
+  %body
+    = yield
