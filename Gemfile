@@ -16,3 +16,5 @@ gem 'sqlite3'
 
 # App Server
 # gem 'unicorn'
+
+gem "authlogic" # User management

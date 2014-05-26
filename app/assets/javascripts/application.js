@@ -11,4 +11,5 @@
 // about supported directives.
 //
 //= require jquery-2.1.1
+//= require bootstrap-3.1.1
 //= require_tree .

@@ -76,8 +76,8 @@ Looks like we have:
 
 # Milestone 1: Users, Organizations, Groups
 
-* Public Home Page
-* Join / Login Pages
+* Public Home Page **[DONE]**
+* Join / Login Pages **[DONE]**
 * Member Search Page (Organizations)
 * Join an Organization (Static Groups)
 * Create an Organization

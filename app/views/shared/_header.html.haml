@@ -1,0 +1,23 @@
+%nav.navbar.navbar-default.navbar-fixed-top{:role => "navigation"}
+  .container-fluid
+    .navbar-header
+      %a.navbar-brand{:href => root_path()}
+        Aperio
+    .collapse.navbar-collapse
+      %ul.nav.navbar-nav.navbar-right
+        - if current_user
+          %li
+            %p.navbar-text
+              Signed in as
+              %a.navbar-link{:href => root_path()}
+                #{current_user.email}
+          %li
+            %form.navbar-form{:role => "logout", :action => logout_path(), :method => :post}
+              %input{:name => "_method", :type => "hidden", :value => "delete"}
+              %input{:name => "authenticity_token", :type => "hidden", :value => form_authenticity_token}
+              %button.btn.btn-default{:type => "submit"}
+                Logout
+        - else
+          %li
+            %a{:href => new_user_path()}
+              Sign In

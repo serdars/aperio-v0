@@ -9,4 +9,10 @@
     <!-- Display well on mobile -->
     %meta{"name" => "viewport", "content" => "initial-scale=1.0, user-scalable=no"}
   %body
-    = yield
+    = render partial: "shared/header"
+    .container-fluid
+      .row
+        .col-md-2
+        .col-md-8
+          = yield
+        .col-md-2
