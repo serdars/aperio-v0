@@ -1,0 +1,14 @@
+.thumbnail.a-hide-overflow.a-organization-thumbnail
+  .caption
+    %h4
+      = organization.name
+    %p
+      %h4
+        - organization.tags.each do |tag|
+          %span.label.label-info.a-organization-tag
+            = tag.name
+    %p
+      %a{:href => organization.website}
+        = organization.website
+    %p
+      = organization.description

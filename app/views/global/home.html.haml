@@ -1,2 +1,4 @@
-%center
-  Welcome to Aperio!
+.row
+  - @organizations.each do |organization|
+    .col-md-3
+      = render partial: "organizations/summary", locals: { organization: organization }

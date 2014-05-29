@@ -74,23 +74,28 @@ Looks like we have:
   * text
 * Tags
 
-# Milestone 1: Users, Organizations, Groups
+# Milestone 1: MVP Demo
 
-* Public Home Page **[DONE]**
-* Join / Login Pages **[DONE]**
-* Member Search Page (Organizations)
-* Join an Organization (Static Groups)
-* Create an Organization
-* Add Member to Board Group
-* Member Profile Page
-* Admin Membership Management Page
+* **DONE**
+  * Public Home Page
+  * Join / Login Pages
+  * Home Page: View Organizations
+  * Organizations / Tags / Seeds for 10 organizations
+* **TODO**
+  * Organization Page
+  * Groups / Static 4 groups per organization
+  * Join an Organization / Join a Group
+  * Profile Page
+  * Create an Organization (Static Groups)
+  * Private Groups
+  * Organization Member Mgmt Page
+  * Add member to a group
 
 # Milestone 2: Conversations
 
-<TBD>
-
 # FUTURE
 
+* Volunteer Match Crawl
 * Custom Groups
 * Organization / Groups Policy
 * Activity

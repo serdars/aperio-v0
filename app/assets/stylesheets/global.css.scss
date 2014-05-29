@@ -5,3 +5,8 @@
 body {
   padding-top: 70px;
 }
+
+.a-hide-overflow {
+  overflow: hidden;
+  text-overflow:ellipsis;
+}

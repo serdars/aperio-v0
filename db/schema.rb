@@ -11,7 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140525074046) do
+ActiveRecord::Schema.define(version: 20140528162417) do
+
+  create_table "organizations", force: true do |t|
+    t.string   "name",        null: false
+    t.text     "description", null: false
+    t.string   "website",     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tag_assignments", force: true do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tags", force: true do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                          null: false
