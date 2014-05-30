@@ -6,6 +6,9 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+Organization.destroy_all
+Tag.destroy_all
+
 tags = [
   'Human Rights', 'Children', 'Youth', 'Justice', 'Legal', 'Seattle', 'Community', 'Animals', 'Education'
 ]

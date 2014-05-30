@@ -1,0 +1,16 @@
+.row
+  .col-md-offset-2.col-md-6
+    %h2
+      = @organization.name
+      %a{:href => @organization.website}
+        %small
+          = @organization.website
+    %p
+      = @organization.description
+  .col-md-2
+    %h3
+      Groups
+    %ul.list-group
+      - @organization.groups.each do |group|
+        %li.list-group-item
+          = group.name

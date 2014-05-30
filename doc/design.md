@@ -81,9 +81,9 @@ Looks like we have:
   * Join / Login Pages
   * Home Page: View Organizations
   * Organizations / Tags / Seeds for 10 organizations
-* **TODO**
   * Organization Page
   * Groups / Static 4 groups per organization
+* **TODO**
   * Join an Organization / Join a Group
   * Profile Page
   * Create an Organization (Static Groups)
