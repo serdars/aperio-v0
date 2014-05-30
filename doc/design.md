@@ -83,8 +83,8 @@ Looks like we have:
   * Organizations / Tags / Seeds for 10 organizations
   * Organization Page
   * Groups / Static 4 groups per organization
-* **TODO**
   * Join an Organization / Join a Group
+* **TODO**
   * Profile Page
   * Create an Organization (Static Groups)
   * Private Groups

@@ -7,6 +7,18 @@ class Organization < ActiveRecord::Base
 
   after_create :create_groups
 
+  def default_group
+    # For now we assume the first group is the default group we would like
+    # users to join to.
+    groups.first
+  end
+
+  def is_member?(user)
+    groups.any? do |group|
+      group.is_member?(user)
+    end
+  end
+
   protected
     def create_groups
       [

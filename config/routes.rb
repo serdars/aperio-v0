@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   delete '/logout' => 'user_sessions#destroy', as: :logout
 
   resources :organizations, only: [ :show ]
+  get '/organizations/:id/join' => 'organizations#join', as: :organization_join
+
+  get '/groups/:id/join' => 'groups#join', as: :group_join
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

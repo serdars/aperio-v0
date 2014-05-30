@@ -2,6 +2,7 @@
   .col-md-offset-2.col-md-6
     %h2
       = @organization.name
+      %br
       %a{:href => @organization.website}
         %small
           = @organization.website
@@ -12,5 +13,17 @@
       Groups
     %ul.list-group
       - @organization.groups.each do |group|
-        %li.list-group-item
+        %li.list-group-item{:class => ("list-group-item-info" if group.is_member?(current_user))}
+          - unless group.is_member?(current_user)
+            %a.btn.btn-primary.pull-right{:href => group_join_path(group)}
+              %i.fa.fa-plus-circle
+              Join
           = group.name
+          %br
+          %small
+            = "#{group.memberships.count} members"
+            - if group.is_member?(current_user)
+              including you
+    - unless @organization.is_member?(current_user)
+      %a.btn.btn-primary.btn-block{:href => organization_join_path(@organization)}
+        Join Organization
