@@ -8,4 +8,15 @@ class User < ActiveRecord::Base
     # http://stackoverflow.com/questions/23031902/rails-4-1-0-and-authlogic-bcrypt-issue
     c.crypto_provider = Authlogic::CryptoProviders::Sha512
   end
+
+  def groups_by_org
+    collection = { }
+
+    groups.each do |group|
+      collection[group.organization] ||= [ ]
+      collection[group.organization] << group
+    end
+
+    collection
+  end
 end

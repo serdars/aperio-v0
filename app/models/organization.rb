@@ -13,10 +13,15 @@ class Organization < ActiveRecord::Base
     groups.first
   end
 
-  def is_member?(user)
+  def member?(user)
     groups.any? do |group|
-      group.is_member?(user)
+      group.member?(user)
     end
+  end
+
+  def admin?(user)
+    # For now we assume second group is the Admins group
+    groups[1].member?(user)
   end
 
   protected
@@ -27,16 +32,24 @@ class Organization < ActiveRecord::Base
           description: "Everyone in #{name}"
         },
         {
+          name: "Admins",
+          description: "Administrators of the organization.",
+          visible: false,
+          private: true
+        },
+        {
           name: "Members",
           description: "Members who have been active in the past."
         },
         {
           name: "Volunteers",
-          description: "Folks who have volunteered here before."
+          description: "Folks who have volunteered here before.",
+          private: true
         },
         {
           name: "Board",
-          description: "Board Members."
+          description: "Board Members.",
+          private: true
         }
       ].each do |group_desc|
         group = Group.new(group_desc.merge({organization: self}))

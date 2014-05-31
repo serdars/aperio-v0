@@ -6,6 +6,9 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+User.destroy_all
+Group.destroy_all
+Membership.destroy_all
 Organization.destroy_all
 Tag.destroy_all
 
@@ -17,6 +20,25 @@ tags.map! do |name|
   tag = Tag.new(name: name)
   tag.save!
   tag
+end
+
+users = [
+  {
+    :email => "serdarsutay@gmail.com",
+    :password => "1234",
+    :password_confirmation => "1234"
+  },
+  {
+    :email => "rmuminoglu@gmail.com",
+    :password => "1234",
+    :password_confirmation => "1234"
+  }
+]
+
+users.map! do |u|
+  user = User.new(u)
+  user.save!
+  user
 end
 
 organizations = [ {
@@ -72,5 +94,10 @@ organizations = [ {
 organizations.map! do |organization|
   org = Organization.new organization
   org.save!
+
+  # Add an admin to the orgs
+  admin = Membership.new(user: users[0], group: org.groups[1])
+  admin.save!
+
   org
 end

@@ -84,10 +84,9 @@ Looks like we have:
   * Organization Page
   * Groups / Static 4 groups per organization
   * Join an Organization / Join a Group
-* **TODO**
   * Profile Page
-  * Create an Organization (Static Groups)
   * Private Groups
+* **TODO**
   * Organization Member Mgmt Page
   * Add member to a group
 
@@ -95,10 +94,11 @@ Looks like we have:
 
 # FUTURE
 
-* Volunteer Match Crawl
-* Custom Groups
+* Create organizations
+* Create Groups
 * Organization / Groups Policy
 * Activity
 * Notifications
 * Events
 * Customizable Organization Home Page
+* Volunteer Match Crawl

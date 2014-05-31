@@ -9,7 +9,7 @@
           %li
             %p.navbar-text
               Signed in as
-              %a.navbar-link{:href => root_path()}
+              %a.navbar-link{:href => user_path(current_user)}
                 #{current_user.email}
           %li
             %form.navbar-form{:role => "logout", :action => logout_path(), :method => :post}

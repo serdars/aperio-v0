@@ -2,11 +2,12 @@ Rails.application.routes.draw do
   root 'global#home'
 
   resources :user_sessions, only: [ :create ]
-  resources :users, only: [ :new, :create ]
+  resources :users, only: [ :new, :create, :show ]
   delete '/logout' => 'user_sessions#destroy', as: :logout
 
   resources :organizations, only: [ :show ]
   get '/organizations/:id/join' => 'organizations#join', as: :organization_join
+  get '/organizations/:id/manage' => 'organizations#manage', as: :organization_manage
 
   get '/groups/:id/join' => 'groups#join', as: :group_join
 
