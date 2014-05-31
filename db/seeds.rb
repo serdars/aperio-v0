@@ -41,6 +41,17 @@ users.map! do |u|
   user
 end
 
+admin_user = users.first
+
+random_users = [ "jack", "jill", "samantha", "john", "eric", "anthony", "fieri" ]
+
+random_users.map! do |random_user|
+  u = User.new(email: "#{random_user}@example.com", password: "1234", password_confirmation: "1234")
+  u.save!
+
+  u
+end
+
 organizations = [ {
     :name => 'Family Law CASA of King County',
     :description => 'Family Law CASA is a non-profit organization focusing on the needs of children in high risk custody cases in King County. Solely funded by private sources, Family Law CASA provides a vital service in our community by offering children an objective, dedicated representative - at no charge. Our dedicated volunteers provide comprehensive, timely reports to family law commissioners and judges, so they can make the best informed custody decisions for these children.',
@@ -96,8 +107,16 @@ organizations.map! do |organization|
   org.save!
 
   # Add an admin to the orgs
-  admin = Membership.new(user: users[0], group: org.groups[1])
+  admin = Membership.new(user: admin_user, group: org.groups[1])
   admin.save!
+
+  # Randomly add some users
+  org.groups.each do |group|
+    users = random_users.length.times.map{ Random.rand(random_users.length) }.uniq.map {|a| random_users[a] }
+    users.each do |user|
+      Membership.new(user: user, group: group).save!
+    end
+  end
 
   org
 end

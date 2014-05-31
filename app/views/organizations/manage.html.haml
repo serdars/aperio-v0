@@ -1,0 +1,45 @@
+.row
+  .col-md-offset-2.col-md-8
+    %h2
+      = @organization.name
+
+    .btn-group
+      %button.btn.btn-default{:type => "button", :disabled => "disabled"}
+        = "#{@group.name} - #{@group.users.count} members"
+      %button.btn.btn-default.dropdown-toggle{:type => "button", :data => { toggle: "dropdown" }}
+        %span.caret
+        %span.sr-only
+          Toggle Dropdown
+      %ul.dropdown-menu{:role => "menu"}
+        - @organization.groups.each do |group|
+          %li{:class => ("disabled" if group == @group)}
+            %a{:href => organization_manage_path(@organization, group: group.id)}
+              = "#{group.name} - #{group.users.count} members"
+
+    %hr
+    %ul.list-inline
+      %li
+        %h4
+          = @group.name
+      %li
+        %form.form-inline{:role => "add_member"}
+          %input{:name => "authenticity_token", :type => "hidden", :value => form_authenticity_token}
+          .form-group
+            %label.sr-only{:for => "member_name"}
+              Member Name
+            %input.form-control{:type => "email", :id => "member_name", :placeholder => "Member Name"}
+          %button.btn.btn-primary{:type => "submit"}
+            Add Member
+    %table.table.table-striped
+      %tbody
+        - if @group.users.empty?
+          %tr
+            %td
+              No members.
+        - else
+          - @group.users.each do |user|
+            %tr
+              %td
+                = user.email
+              %td
+                = "Joined at #{membership(@group, user).created_at}"

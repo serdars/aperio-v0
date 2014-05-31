@@ -9,13 +9,16 @@
     %p
       = @organization.description
   .col-md-2
+    - if @organization.admin?(current_user)
+      %a.btn.btn-primary.btn-block{:href => organization_manage_path(@organization)}
+        Manage Organization
     %h3
       Groups
     %ul.list-group
       - @organization.groups.each do |group|
         - if group.visible
           %li.list-group-item{:class => ("list-group-item-info" if group.member?(current_user))}
-            - unless group.member?(current_user)
+            - if @organization.member?(current_user) && !group.member?(current_user) && !group.private
               %a.btn.btn-primary.pull-right{:href => group_join_path(group)}
                 %i.fa.fa-plus-circle
                 Join
@@ -25,6 +28,8 @@
               = "#{group.memberships.count} members"
               - if group.member?(current_user)
                 including you
+              - elsif group.private
+                \- Private Group
     - unless @organization.member?(current_user)
       %a.btn.btn-primary.btn-block{:href => organization_join_path(@organization)}
         Join Organization

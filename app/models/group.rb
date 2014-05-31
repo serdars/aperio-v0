@@ -7,7 +7,6 @@ class Group < ActiveRecord::Base
   def member?(user)
     return false unless user
 
-    users.map { user.id }
-      .include? user.id
+    memberships.any? {|m| m.user.id == user.id}
   end
 end

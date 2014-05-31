@@ -86,8 +86,8 @@ Looks like we have:
   * Join an Organization / Join a Group
   * Profile Page
   * Private Groups
-* **TODO**
   * Organization Member Mgmt Page
+* **TODO**
   * Add member to a group
 
 # Milestone 2: Conversations
