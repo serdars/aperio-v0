@@ -19,9 +19,8 @@
         - if group.visible
           %li.list-group-item{:class => ("list-group-item-info" if group.member?(current_user))}
             - if @organization.member?(current_user) && !group.member?(current_user) && !group.private
-              %a.btn.btn-primary.pull-right{:href => group_join_path(group)}
-                %i.fa.fa-plus-circle
-                Join
+              .pull-right
+                = render partial: "shared/button_to", locals: {target: group_join_path(group), value: "Join", icon: "fa fa-plus-circle", block: false}
             = group.name
             %br
             %small
@@ -31,5 +30,4 @@
               - elsif group.private
                 \- Private Group
     - unless @organization.member?(current_user)
-      %a.btn.btn-primary.btn-block{:href => organization_join_path(@organization)}
-        Join Organization
+      = render partial: "shared/button_to", locals: {target: organization_join_path(@organization), value: "Join Organization", icon: nil, block:true}

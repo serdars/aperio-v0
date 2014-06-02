@@ -6,10 +6,15 @@ Rails.application.routes.draw do
   delete '/logout' => 'user_sessions#destroy', as: :logout
 
   resources :organizations, only: [ :show ]
-  get '/organizations/:id/join' => 'organizations#join', as: :organization_join
-  get '/organizations/:id/manage' => 'organizations#manage', as: :organization_manage
+  get   '/organizations/:id/manage' => 'organizations#manage', as: :organization_manage
+  post  '/organizations/:id/join' => 'organizations#join', as: :organization_join
+  # We redirect GET on join to show to satisfy user_required use case.
+  get   '/organizations/:id/join' => 'organizations#show'
 
-  get '/groups/:id/join' => 'groups#join', as: :group_join
+  resources :groups, only: [ :show ]
+  post  '/groups/:id/join' => 'groups#join', as: :group_join
+  # We redirect GET on join to show to satisfy user_required use case.
+  get   '/groups/:id/join' => 'groups#show'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

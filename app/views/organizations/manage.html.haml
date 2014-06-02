@@ -22,12 +22,12 @@
         %h4
           = @group.name
       %li
-        %form.form-inline{:role => "add_member"}
+        %form.form-inline{:role => "add_member", :action => group_join_path(@group), :method => :post}
           %input{:name => "authenticity_token", :type => "hidden", :value => form_authenticity_token}
           .form-group
             %label.sr-only{:for => "member_name"}
               Member Name
-            %input.form-control{:type => "email", :id => "member_name", :placeholder => "Member Name"}
+            %input.form-control{:type => "email", :name => "member_name", :id => "member_name", :placeholder => "Member Name"}
           %button.btn.btn-primary{:type => "submit"}
             Add Member
     %table.table.table-striped

@@ -74,23 +74,25 @@ Looks like we have:
   * text
 * Tags
 
-# Milestone 1: MVP Demo
-
-* **DONE**
-  * Public Home Page
-  * Join / Login Pages
-  * Home Page: View Organizations
-  * Organizations / Tags / Seeds for 10 organizations
-  * Organization Page
-  * Groups / Static 4 groups per organization
-  * Join an Organization / Join a Group
-  * Profile Page
-  * Private Groups
-  * Organization Member Mgmt Page
-* **TODO**
-  * Add member to a group
+# Milestone 1: MVP Demo **DONE**
+* Public Home Page
+* Join / Login Pages
+* Home Page: View Organizations
+* Organizations / Tags / Seeds for 10 organizations
+* Organization Page
+* Groups / Static 4 groups per organization
+* Join an Organization / Join a Group
+* Profile Page
+* Private Groups
+* Organization Member Mgmt Page
+* Add member to a group
 
 # Milestone 2: Conversations
+
+* **DONE**
+  * Initial design
+* **TODO**
+
 
 # FUTURE
 
