@@ -64,12 +64,11 @@ Looks like we have:
     * default_group_upon_join
     * ...
 * Conversations
-  * starter (User)
+  * owner (User)
+  * to_group
   * 1..N messages
-  * is_public?
 * Messages
-  * parent
-  * is_deleted?
+  * conversation
   * owner
   * text
 * Tags
@@ -91,11 +90,24 @@ Looks like we have:
 
 * **DONE**
   * Initial design
+  * I can see conversations in the org page
+  * Org page utilizes more of the real estate
 * **TODO**
+  * Group page shows the conversations that group is included in
+  * User page has two tabs. Membership / Conversations.
+  * Conversation tab shows the conversations with updates title bold.
+  * Header shows the count of "updates" for the user. Clicking takes
+    to notifications tab.
+  * Users should have a screen name
+  * I can start a conversation from org page
+  * Conversation page should be able to reply in the same page.
+    * Message editing
+  * deleting final message deletes the conversation
 
 
 # FUTURE
 
+* Conversations with individuals
 * Create organizations
 * Create Groups
 * Organization / Groups Policy

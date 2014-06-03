@@ -1,17 +1,27 @@
 .row
-  .col-md-offset-2.col-md-6
-    %h2
-      = @organization.name
-      %br
-      %a{:href => @organization.website}
-        %small
-          = @organization.website
+  .col-md-offset-1.col-md-7
+    .row
+      .col-md-9
+        %h2
+          = @organization.name
+          %br
+          %a{:href => @organization.website}
+            %small
+              = @organization.website
+      .col-md-3
+        .btn-group.pull-right
+          - if @organization.admin?(current_user)
+            %a.btn.btn-warning{:href => organization_manage_path(@organization), :title => "Manage Organization", :data => {toggle: "tooltip", container: 'body'} }
+              %i.fa.fa-gear.fa-lg
+          %a.btn.btn-info{:href => root_path, :title => "Start Conversation", :data => {toggle: "tooltip", container: 'body'} }
+            %i.fa.fa-pencil.fa-lg
+        - unless @organization.member?(current_user)
+          .pull-right
+            = render partial: "shared/button_to", locals: {target: organization_join_path(@organization), value: "", icon: "fa fa-sign-in fa-lg", block:false, title: "Join"}
     %p
       = @organization.description
-  .col-md-2
-    - if @organization.admin?(current_user)
-      %a.btn.btn-primary.btn-block{:href => organization_manage_path(@organization)}
-        Manage Organization
+    = render partial: "conversations/index", locals: { conversations: @organization.conversations }
+  .col-md-3
     %h3
       Groups
     %ul.list-group
@@ -20,7 +30,7 @@
           %li.list-group-item{:class => ("list-group-item-info" if group.member?(current_user))}
             - if @organization.member?(current_user) && !group.member?(current_user) && !group.private
               .pull-right
-                = render partial: "shared/button_to", locals: {target: group_join_path(group), value: "Join", icon: "fa fa-plus-circle", block: false}
+                = render partial: "shared/button_to", locals: {target: group_join_path(group), value: "", icon: "fa fa-sign-in fa-lg", block: false, title: "Join"}
             = group.name
             %br
             %small
@@ -29,5 +39,3 @@
                 including you
               - elsif group.private
                 \- Private Group
-    - unless @organization.member?(current_user)
-      = render partial: "shared/button_to", locals: {target: organization_join_path(@organization), value: "Join Organization", icon: nil, block:true}

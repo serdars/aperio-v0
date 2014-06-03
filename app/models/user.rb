@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   has_many :memberships
   has_many :groups, through: :memberships
+  has_many :conversations
+  has_many :messages
 
   acts_as_authentic do |c|
     c.validate_login_field = false

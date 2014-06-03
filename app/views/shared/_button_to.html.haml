@@ -1,6 +1,6 @@
 %form.form-inline{:role => "button_to", :action => target, :method => :post}
   %input{:name => "authenticity_token", :type => "hidden", :value => form_authenticity_token}
-  %button.btn.btn-primary{:type => "submit", :class => ("btn-block" if block)}
+  %button.btn.btn-info{:type => "submit", :class => ("btn-block" if block), :title => title, :data => {toggle: "tooltip"}}
     - if icon
       %i{:class => icon}
     = value

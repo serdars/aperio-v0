@@ -6,11 +6,17 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-User.destroy_all
-Group.destroy_all
-Membership.destroy_all
-Organization.destroy_all
-Tag.destroy_all
+def release_all
+  User.destroy_all
+  Group.destroy_all
+  Membership.destroy_all
+  Organization.destroy_all
+  Tag.destroy_all
+  Message.destroy_all
+  Conversation.destroy_all
+end
+
+release_all
 
 tags = [
   'Human Rights', 'Children', 'Youth', 'Justice', 'Legal', 'Seattle', 'Community', 'Animals', 'Education'
@@ -119,4 +125,9 @@ organizations.map! do |organization|
   end
 
   org
+end
+
+["Make me a tea please", "Also a donut sil vous plait"].each do |title|
+  c = Conversation.new(user:admin_user, group: Group.last, title: title)
+  c.save!
 end

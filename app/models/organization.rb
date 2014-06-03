@@ -24,6 +24,10 @@ class Organization < ActiveRecord::Base
     groups[1].member?(user)
   end
 
+  def conversations
+    Conversation.where(group: groups)
+  end
+
   protected
     def create_groups
       [

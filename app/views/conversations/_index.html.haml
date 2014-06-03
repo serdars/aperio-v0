@@ -1,0 +1,9 @@
+- conversations.each do |conversation|
+  %h4
+    = conversation.title
+    %small
+      = conversation.group.name
+  %p
+    = "From: #{conversation.user.email}"
+  %p
+    these will be the conversation text
