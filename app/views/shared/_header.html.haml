@@ -8,7 +8,6 @@
         - if current_user
           %li
             %p.navbar-text
-              Signed in as
               %a.navbar-link{:href => user_path(current_user)}
                 #{current_user.email}
           %li

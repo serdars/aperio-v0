@@ -13,6 +13,7 @@ gem 'haml'
 
 # DB
 gem 'sqlite3'
+gem 'faker', group: :development
 
 # App Server
 # gem 'unicorn'

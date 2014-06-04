@@ -13,6 +13,11 @@ class Organization < ActiveRecord::Base
     groups.first
   end
 
+  def admin_group
+    # For now we assume second group is the Admins group
+    groups[1]
+  end
+
   def member?(user)
     groups.any? do |group|
       group.member?(user)
@@ -21,7 +26,7 @@ class Organization < ActiveRecord::Base
 
   def admin?(user)
     # For now we assume second group is the Admins group
-    groups[1].member?(user)
+    admin_group.member?(user)
   end
 
   def conversations

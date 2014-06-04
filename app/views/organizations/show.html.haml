@@ -20,22 +20,25 @@
             = render partial: "shared/button_to", locals: {target: organization_join_path(@organization), value: "", icon: "fa fa-sign-in fa-lg", block:false, title: "Join"}
     %p
       = @organization.description
-    = render partial: "conversations/index", locals: { conversations: @organization.conversations }
+    = render partial: "conversations/index", locals: { conversations: filter_conversations(@organization.conversations, group: @group) }
   .col-md-3
     %h3
       Groups
     %ul.list-group
       - @organization.groups.each do |group|
         - if group.visible
-          %li.list-group-item{:class => ("list-group-item-info" if group.member?(current_user))}
+          %li.list-group-item{:class => ("list-group-item-info" if @group == group)}
             - if @organization.member?(current_user) && !group.member?(current_user) && !group.private
               .pull-right
                 = render partial: "shared/button_to", locals: {target: group_join_path(group), value: "", icon: "fa fa-sign-in fa-lg", block: false, title: "Join"}
-            = group.name
+            - if @group == group
+              = group.name
+            - else
+              %a{:href => organization_path(@organization, group: group)}
+                = group.name
             %br
             %small
-              = "#{group.memberships.count} members"
-              - if group.member?(current_user)
-                including you
-              - elsif group.private
-                \- Private Group
+              - if group.private
+                Private Group
+              - else
+                = "#{group.memberships.count} members #{'including you' if group.member?(current_user)}, #{group.conversations.count} conversations"

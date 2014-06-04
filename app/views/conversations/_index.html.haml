@@ -5,5 +5,8 @@
       = conversation.group.name
   %p
     = "From: #{conversation.user.email}"
-  %p
-    these will be the conversation text
+  - conversation.messages.each do |message|
+    %strong
+      = message.user.email
+    %p
+      = message.body

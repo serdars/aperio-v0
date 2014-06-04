@@ -6,6 +6,27 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+def generate_one(type)
+  case type
+  when :word
+    Faker::Lorem.word
+  when :email
+    Faker::Internet.email
+  else
+    raise "Unknown type to generate: #{type}"
+  end
+end
+
+def unique_generate(count, type)
+  set = Set.new
+
+  while(set.count < count) do
+    set << generate_one(type)
+  end
+
+  set
+end
+
 def release_all
   User.destroy_all
   Group.destroy_all
@@ -16,118 +37,64 @@ def release_all
   Conversation.destroy_all
 end
 
+
+# First release everything we have
 release_all
 
-tags = [
-  'Human Rights', 'Children', 'Youth', 'Justice', 'Legal', 'Seattle', 'Community', 'Animals', 'Education'
-]
-
-tags.map! do |name|
-  tag = Tag.new(name: name)
-  tag.save!
-  tag
+unique_generate(10, :word).each do |tag_name|
+  Tag.new(name: tag_name).save!
 end
 
-users = [
-  {
-    :email => "serdarsutay@gmail.com",
-    :password => "1234",
-    :password_confirmation => "1234"
-  },
-  {
-    :email => "rmuminoglu@gmail.com",
-    :password => "1234",
-    :password_confirmation => "1234"
-  }
-]
+# Create the known users that we want to play with
+["serdarsutay@gmail.com", "rmuminoglu@gmail.com"].each do |email|
+  User.new(email: email, password: "1234", password_confirmation: "1234").save!
+end
+admin_user = User.first
 
-users.map! do |u|
-  user = User.new(u)
-  user.save!
-  user
+# Create some random users
+unique_generate(20, :email).each do |user_email|
+  User.new(email: user_email, password: '1234', password_confirmation: '1234').save!
 end
 
-admin_user = users.first
+# Create some random organizations
+20.times do
+  org = Organization.new({
+    name: Faker::Company.name,
+    description: Faker::Lorem.paragraphs(rand(5) + 1).join("\n"),
+    website: Faker::Internet.url,
+    tags: Tag.all.sample(rand(5) + 2)
+  })
 
-random_users = [ "jack", "jill", "samantha", "john", "eric", "anthony", "fieri" ]
-
-random_users.map! do |random_user|
-  u = User.new(email: "#{random_user}@example.com", password: "1234", password_confirmation: "1234")
-  u.save!
-
-  u
-end
-
-organizations = [ {
-    :name => 'Family Law CASA of King County',
-    :description => 'Family Law CASA is a non-profit organization focusing on the needs of children in high risk custody cases in King County. Solely funded by private sources, Family Law CASA provides a vital service in our community by offering children an objective, dedicated representative - at no charge. Our dedicated volunteers provide comprehensive, timely reports to family law commissioners and judges, so they can make the best informed custody decisions for these children.',
-    :website => 'http://www.familylawcasa.org',
-    :tags => [ tags[0], tags[1], tags[2], tags[3], tags[4]]
-  },
-  {
-    name: 'Seattle Center Foundation',
-    description: "Since 1977, Seattle Center Foundation has worked with Seattle Center to reflect the 1962 World's Fair's mission of inspiration, innovation and imagination. With the Foundation's help, Seattle's premier urban park has been able to celebrate it's iconic past and create new cultural centers including the Marion Oliver McCaw Hall, International Fountain and Fisher Pavilion.",
-    website: 'http://www.seattlecenter.org',
-    tags: [ tags[1], tags[2], tags[5], tags[6] ]
-  },
-  {
-    name: 'Kitsap Humane Society',
-    description: "The Kitsap Humane Society is an open-admission animal shelter that maintains a 94% lives-saved rate. KHS rehomes over 4,000 companion animals per year through adoptions. KHS volunteers donate over 30,000 hours per year helping shelter animals!",
-    website: 'http://www.kitsap-humane.org',
-    tags: [ tags[7], tags[8], tags[6] ]
-  },
-  {
-    name: "EvergreenHealth",
-    description: "EvergreenHealth is a community-based health care organization serving more that 400,000 people throughout northern King and southern Snohomish counties in Washington state. Volunteers are needed to serve in the hospital and in the hospice program.",
-    website: "http://www.evergreenhealthcare.org",
-    tags: [ tags[6], tags[3], tags[8] ]
-  },
-  {
-    :name => 'Family Law CASA of Metropol',
-    :description => 'Family Law CASA is a non-profit organization focusing on the needs of children in high risk custody cases in King County. Solely funded by private sources, Family Law CASA provides a vital service in our community by offering children an objective, dedicated representative - at no charge. Our dedicated volunteers provide comprehensive, timely reports to family law commissioners and judges, so they can make the best informed custody decisions for these children.',
-    :website => 'http://www.familylawcasa.org',
-    :tags => [ tags[0], tags[1], tags[2], tags[3], tags[4]]
-  },
-  {
-    name: 'Seattle Center Foundation Double',
-    description: "Since 1977, Seattle Center Foundation has worked with Seattle Center to reflect the 1962 World's Fair's mission of inspiration, innovation and imagination. With the Foundation's help, Seattle's premier urban park has been able to celebrate it's iconic past and create new cultural centers including the Marion Oliver McCaw Hall, International Fountain and Fisher Pavilion.",
-    website: 'http://www.seattlecenter.org',
-    tags: [ tags[1], tags[2], tags[5], tags[6] ]
-  },
-  {
-    name: 'Sochi Humane Society',
-    description: "The Kitsap Humane Society is an open-admission animal shelter that maintains a 94% lives-saved rate. KHS rehomes over 4,000 companion animals per year through adoptions. KHS volunteers donate over 30,000 hours per year helping shelter animals!",
-    website: 'http://www.kitsap-humane.org',
-    tags: [ tags[7], tags[8], tags[6] ]
-  },
-  {
-    name: "MasterChef Foundation",
-    description: "EvergreenHealth is a community-based health care organization serving more that 400,000 people throughout northern King and southern Snohomish counties in Washington state. Volunteers are needed to serve in the hospital and in the hospice program.",
-    website: "http://www.evergreenhealthcare.org",
-    tags: [ tags[6], tags[3], tags[8] ]
-  }
-]
-
-organizations.map! do |organization|
-  org = Organization.new organization
   org.save!
 
   # Add an admin to the orgs
-  admin = Membership.new(user: admin_user, group: org.groups[1])
+  admin = Membership.new(user: admin_user, group: org.admin_group)
   admin.save!
 
   # Randomly add some users
   org.groups.each do |group|
-    users = random_users.length.times.map{ Random.rand(random_users.length) }.uniq.map {|a| random_users[a] }
-    users.each do |user|
+    User.all.sample(rand(5) + 1).each do |user|
       Membership.new(user: user, group: group).save!
     end
   end
-
-  org
 end
 
-["Make me a tea please", "Also a donut sil vous plait"].each do |title|
-  c = Conversation.new(user:admin_user, group: Group.last, title: title)
-  c.save!
+# Get some conversations started
+100.times do
+  user = User.all.sample
+  group = user.groups.sample
+  conv = Conversation.new({
+    user: user,
+    group: group,
+    title: Faker::Lorem.sentence
+  })
+  conv.save!
+
+  (rand(10) + 2).times do
+    Message.new({
+      user: group.users.sample,
+      conversation: conv,
+      body: Faker::Lorem.paragraphs(rand(5) + 1).join("\n")
+    }).save!
+  end
 end

@@ -92,8 +92,9 @@ Looks like we have:
   * Initial design
   * I can see conversations in the org page
   * Org page utilizes more of the real estate
-* **TODO**
   * Group page shows the conversations that group is included in
+* **TODO**
+  * Group list hovers and full div is clickable
   * User page has two tabs. Membership / Conversations.
   * Conversation tab shows the conversations with updates title bold.
   * Header shows the count of "updates" for the user. Clicking takes
