@@ -33,6 +33,6 @@ before_filter :require_user, :only => :join
       flash[:notice] = "Successfully joined '#{@group.name}' group."
     end
 
-    redirect_to organization_path(@group.organization)
+    redirect_to organization_path(@group.organization, group: @group)
   end
 end

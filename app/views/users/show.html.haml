@@ -1,4 +1,26 @@
 .row
+  .col-md-offset-1.col-md-10
+    %ul.nav.nav-tabs
+      %li.active
+        %a{:href => "#timeline", "data-toggle" => "tab"}
+          Timeline
+      %li
+        %a{:href => "#notifications", "data-toggle" => "tab"}
+          Notifications
+
+    .tab-content.pane-frame
+      .tab-pane.active.pane#timeline
+        = "#{@user.groups_by_org.keys.count} Organizations, #{@user.groups.count} Groups, #{@user.conversations.count} Conversations, #{@user.messages.count} Messages"
+
+
+
+    .tab-pane.pane#notifications
+
+
+
+
+
+.row
   .col-md-offset-2.col-md-8
     %h2
       = @user.email

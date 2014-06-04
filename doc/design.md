@@ -73,6 +73,27 @@ Looks like we have:
   * text
 * Tags
 
+## Notification System / Timeline
+
+Notifications and Activity will be different tables in the database.
+Ideally they will be prepared as a background task but ease we will post
+  them with ActiveRecord callback and mass insertion for now.
+
+* Activity
+  * Subject Type
+  * Subject ID
+  * Action
+  * Object Type
+  * Object ID
+  * Data
+
+* Notification
+  * User
+  * Subject User
+  * Action
+  * Object Type
+  * Object ID
+
 # Milestone 1: MVP Demo **DONE**
 * Public Home Page
 * Join / Login Pages
@@ -93,9 +114,9 @@ Looks like we have:
   * I can see conversations in the org page
   * Org page utilizes more of the real estate
   * Group page shows the conversations that group is included in
-* **TODO**
   * Group list hovers and full div is clickable
-  * User page has two tabs. Membership / Conversations.
+* **TODO**
+  * User page has two tabs. Membership / Notifications.
   * Conversation tab shows the conversations with updates title bold.
   * Header shows the count of "updates" for the user. Clicking takes
     to notifications tab.
