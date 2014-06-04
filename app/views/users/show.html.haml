@@ -10,47 +10,28 @@
 
     .tab-content.pane-frame
       .tab-pane.active.pane#timeline
-        = "#{@user.groups_by_org.keys.count} Organizations, #{@user.groups.count} Groups, #{@user.conversations.count} Conversations, #{@user.messages.count} Messages"
-
-
-
-    .tab-pane.pane#notifications
-
-
-
-
-
-.row
-  .col-md-offset-2.col-md-8
-    %h2
-      = @user.email
-    %h3
-      %ul.list-inline
-        %li
-          Organizations
-          %small
-            = "(#{@user.groups_by_org.keys.count})"
-        %li
-          Groups
-          %small
-            = "(#{@user.groups.count})"
-    - @user.groups_by_org.each do |organization, groups|
-      .row
-        %h4
-          %ul.list-inline
-            %li
-              %a{:href => organization_path(organization)}
-                = organization.name
-            - if organization.admin?(current_user)
-              %a.btn.btn-primary{:href => organization_manage_path(organization)}
-                %i.fa.fa-edit
-                Manage
-      - groups.each do |group|
         .row
-          .col-md-offset-1.col-md-11
-            %ul.list-unstyled
-              %li
-                %h5
-                  = group.name
-                  %small
-                    = "Joined at #{l group.created_at, format: :short}"
+          .col-md-offset-1.col-md-5
+            %h3.text-info
+              = "#{@user.organizations.count} Organizations, #{@user.groups.count} Groups"
+            - @user.memberships_by_org.each do |organization, memberships|
+              %h4
+                %a{:href => organization_path(organization)}
+                  = organization.name
+              .row
+                .col-md-offset-1.col-md-11
+                  %ul.list-unstyled
+                    - memberships.each do |membership|
+                      %li
+                        %a{:href => organization_path(organization, group: membership.group)}
+                          = membership.group.name
+                        %small
+                          = "Joined at #{l membership.created_at, format: :short}"
+
+
+          .col-md-5
+            %h3.text-info
+              = "#{@user.conversations.count} Conversations, #{@user.messages.count} Messages"
+
+      .tab-pane.pane#notifications
+        This is the notifications page

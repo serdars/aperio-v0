@@ -11,12 +11,16 @@ class User < ActiveRecord::Base
     c.crypto_provider = Authlogic::CryptoProviders::Sha512
   end
 
-  def groups_by_org
+  def organizations
+    groups.map{|g| g.organization}.uniq
+  end
+
+  def memberships_by_org
     collection = { }
 
-    groups.each do |group|
-      collection[group.organization] ||= [ ]
-      collection[group.organization] << group
+    memberships.each do |membership|
+      collection[membership.group.organization] ||= [ ]
+      collection[membership.group.organization] << membership
     end
 
     collection

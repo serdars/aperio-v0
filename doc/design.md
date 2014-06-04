@@ -79,6 +79,11 @@ Notifications and Activity will be different tables in the database.
 Ideally they will be prepared as a background task but ease we will post
   them with ActiveRecord callback and mass insertion for now.
 
+Example activities:
+* Serdar joined Org Name - Group Name on Date.
+* Serdar started a conversation on Org Name - Group Name on Date.
+* Serdar posted a message to Conversation Name on Date.
+
 * Activity
   * Subject Type
   * Subject ID
@@ -125,7 +130,8 @@ Ideally they will be prepared as a background task but ease we will post
   * Conversation page should be able to reply in the same page.
     * Message editing
   * deleting final message deletes the conversation
-
+  * List conversations in the user profile page.
+  * Users shouldn't see private group related things.
 
 # FUTURE
 
