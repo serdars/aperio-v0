@@ -131,7 +131,6 @@ Example activities:
   * Conversation page should be able to reply in the same page.
     * Message editing
   * deleting final message deletes the conversation
-  * List conversations in the user profile page.
   * Users shouldn't see private group related things.
 
 # FUTURE

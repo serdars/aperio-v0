@@ -1,12 +1,6 @@
-- conversations.each do |conversation|
-  %h4
-    = conversation.title
-    %small
-      = conversation.group.name
-  %p
-    = "From: #{conversation.user.email}"
-  - conversation.messages.each do |message|
-    %strong
-      = message.user.email
-    %p
-      = message.body
+.list-group
+  - conversations.each do |conversation|
+    %a.list-group-item{:href => conversation_path(conversation)}
+      = render partial: "conversations/header", locals: {conversation: conversation}
+      %p.list-group-item-text
+        #{conversation.messages[0].body[0..50]} #{"..." if conversation.messages[0].body.length > 50 }

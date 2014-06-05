@@ -1,0 +1,19 @@
+%h4.list-group-item-heading
+  .row
+    .col-md-9
+      = conversation.title
+    .col-md-3
+      %span.label.label-primary
+        #{conversation.group.name}
+%h5.list-group-item-heading
+  %ul.list-inline
+    %li
+      #{conversation.user.email}
+    %li
+      #{conversation.messages.count} messages
+    %li
+      %small
+        Started on #{l conversation.created_at, format: :short}
+    %li
+      %small
+        Last message on #{l conversation.updated_at, format: :short}
