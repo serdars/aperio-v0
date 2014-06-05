@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140603000120) do
+ActiveRecord::Schema.define(version: 20140604231509) do
 
   create_table "conversations", force: true do |t|
     t.string   "title",      null: false
@@ -42,6 +42,16 @@ ActiveRecord::Schema.define(version: 20140603000120) do
     t.text     "body"
     t.integer  "conversation_id"
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "notifications", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "subject_id"
+    t.string   "action"
+    t.integer  "notifiable_id"
+    t.string   "notifiable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

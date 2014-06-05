@@ -2,14 +2,36 @@
   .col-md-offset-1.col-md-10
     %ul.nav.nav-tabs
       %li.active
-        %a{:href => "#timeline", "data-toggle" => "tab"}
-          Timeline
-      %li
         %a{:href => "#notifications", "data-toggle" => "tab"}
           Notifications
+      %li
+        %a{:href => "#timeline", "data-toggle" => "tab"}
+          Timeline
 
     .tab-content.pane-frame
-      .tab-pane.active.pane#timeline
+      .tab-pane.active.pane#notifications
+        .row
+          .col-md-offset-1.col-md-10
+            %ul.list-group
+              - if @user.notifications.empty?
+                %li.list-group-item
+                  Congratulations. No unread notifications.
+              - else
+                - @user.notifications.each do |notification|
+                  %li.list-group-item
+                    %a.mark-notification{:href => "#", :title => "Mark as read", :data => {toggle: "tooltip", id: notification.id} }
+                      %i.fa.fa-check
+                    %a{:href => user_path(notification.subject)}
+                      #{notification.subject.email}
+                    = notification.message
+                    %a{:href => organization_path(notification.notifiable.organization, group: notification.notifiable)}
+                      = "#{notification.notifiable.name} group"
+                    in #{notification.notifiable.organization.name}.
+                    %small
+                      = l notification.created_at, format: :short
+
+
+      .tab-pane.pane#timeline
         .row
           .col-md-offset-1.col-md-5
             %h3.text-info
@@ -32,6 +54,3 @@
           .col-md-5
             %h3.text-info
               = "#{@user.conversations.count} Conversations, #{@user.messages.count} Messages"
-
-      .tab-pane.pane#notifications
-        This is the notifications page

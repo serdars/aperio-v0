@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   # We redirect GET on join to show to satisfy user_required use case.
   get   '/groups/:id/join' => 'groups#show'
 
+  resources :notifications, only: [ :destroy ]
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

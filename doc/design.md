@@ -120,13 +120,14 @@ Example activities:
   * Org page utilizes more of the real estate
   * Group page shows the conversations that group is included in
   * Group list hovers and full div is clickable
-* **TODO**
   * User page has two tabs. Membership / Notifications.
+* **TODO**
   * Conversation tab shows the conversations with updates title bold.
   * Header shows the count of "updates" for the user. Clicking takes
     to notifications tab.
   * Users should have a screen name
   * I can start a conversation from org page
+  * Message / conversation notifications.
   * Conversation page should be able to reply in the same page.
     * Message editing
   * deleting final message deletes the conversation
