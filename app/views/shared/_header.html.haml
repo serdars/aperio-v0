@@ -8,8 +8,11 @@
         - if current_user
           %li
             %p.navbar-text
-              %a.navbar-link{:href => user_path(current_user)}
+              %a.navbar-link{:href => user_path(current_user, tab: "timeline")}
                 #{current_user.email}
+              %a.navbar-link{:href => user_path(current_user, tab: "notifications")}
+                %span.badge
+                  #{current_user.notifications.count}
           %li
             %form.navbar-form{:role => "logout", :action => logout_path(), :method => :post}
               %input{:name => "_method", :type => "hidden", :value => "delete"}

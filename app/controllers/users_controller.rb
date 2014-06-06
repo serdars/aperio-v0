@@ -21,6 +21,7 @@ class UsersController < ApplicationController
 
   def show
     @user = current_user
+    @tab = params[:tab] || "timeline"
   end
 
   # def edit

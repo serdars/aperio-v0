@@ -3,19 +3,31 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $ () ->
-  $(".mark-notification").click (event) ->
-    event.preventDefault()
+  muteNotification = (notification_selector) ->
+    $(notification_selector).parent().addClass "text-muted"
+    $(notification_selector).parent().find("a").addClass "muted-link"
+    $(notification_selector).tooltip "destroy"
+    $(notification_selector).addClass "invisible"
 
-    # Mark the current element muted
-    $(this).parent().addClass "text-muted"
-    $(this).parent().find("a").addClass "muted-link"
-    $(this).tooltip "destroy"
-    $(this).addClass "invisible"
-
-    # Delete the notification
+  deleteNotifications = (notifications) ->
     $.ajax {
-      url: '/notifications/' + $(this).data("id")
-      type: 'DELETE'
+      url: '/notify'
+      data:
+        ids: notifications
+      type: 'POST'
       success: (result) ->
         console.log 'Yay.'
     }
+
+  $(".mark-notification").click (event) ->
+    event.preventDefault()
+    muteNotification this
+    deleteNotifications [ $(this).data("id") ]
+
+    # Delete the notification
+
+  $(".mark-all-notifications").click (event) ->
+    event.preventDefault()
+    muteNotification ".mark-notification"
+    muteNotification this
+    deleteNotifications $(this).data("ids")

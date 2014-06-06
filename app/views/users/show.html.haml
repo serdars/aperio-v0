@@ -1,15 +1,15 @@
 .row
   .col-md-offset-1.col-md-10
     %ul.nav.nav-tabs
-      %li.active
+      %li{:class => ("active" if @tab == "notifications")}
         %a{:href => "#notifications", "data-toggle" => "tab"}
           Notifications
-      %li
+      %li{:class => ("active" if @tab == "timeline")}
         %a{:href => "#timeline", "data-toggle" => "tab"}
           Timeline
 
     .tab-content.pane-frame
-      .tab-pane.active.pane#notifications
+      .tab-pane.pane#notifications{:class => ("active" if @tab == "notifications")}
         .row
           .col-md-offset-1.col-md-10
             %ul.list-group
@@ -17,21 +17,22 @@
                 %li.list-group-item
                   Congratulations. No unread notifications.
               - else
+                %li.list-group-item
+                  %a.mark-all-notifications{:href => "#", :title => "Mark all as read", :data => {toggle: "tooltip", ids: @user.notifications.map{|a| a.id}} }
+                    %i.fa.fa-check.fa-2x
+                  #{@user.notifications.count} Notifications
                 - @user.notifications.each do |notification|
                   %li.list-group-item
                     %a.mark-notification{:href => "#", :title => "Mark as read", :data => {toggle: "tooltip", id: notification.id} }
                       %i.fa.fa-check
                     %a{:href => user_path(notification.subject)}
                       #{notification.subject.email}
-                    = notification.message
-                    %a{:href => organization_path(notification.notifiable.organization, group: notification.notifiable)}
-                      = "#{notification.notifiable.name} group"
-                    in #{notification.notifiable.organization.name}.
+                    = render partial: "notifications/#{notification.action}", locals: {notification: notification}
                     %small
                       = l notification.created_at, format: :short
 
 
-      .tab-pane.pane#timeline
+      .tab-pane.pane#timeline{:class => ("active" if @tab == "timeline")}
         .row
           .col-md-offset-1.col-md-5
             %h3.text-info
@@ -54,3 +55,17 @@
           .col-md-5
             %h3.text-info
               = "#{@user.conversations.count} Conversations, #{@user.messages.count} Messages"
+            - @user.conversations_by_org.each do |organization, conversations|
+              %h4
+                %a{:href => organization_path(organization)}
+                  = organization.name
+              .row
+                .col-md-offset-1.col-md-11
+                  %ul.list-unstyled
+                    - conversations.each do |conversation|
+                      %li
+                        %a{:href => conversation_path(conversation)}
+                          = conversation.title
+                      %li
+                        %small
+                          = "Started at #{l conversation.created_at, format: :short}"

@@ -1,0 +1,7 @@
+has joined
+%a{:href => organization_path(notification.notifiable.organization, group: notification.notifiable)}
+  = "#{notification.notifiable.name} group"
+in
+%a{:href => organization_path(notification.notifiable.organization)}
+  = "#{notification.notifiable.organization.name}"
+\.

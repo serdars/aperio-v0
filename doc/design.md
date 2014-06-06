@@ -121,16 +121,14 @@ Example activities:
   * Group page shows the conversations that group is included in
   * Group list hovers and full div is clickable
   * User page has two tabs. Membership / Notifications.
-* **TODO**
   * Conversation tab shows the conversations with updates title bold.
+  * Message / conversation notifications.
   * Header shows the count of "updates" for the user. Clicking takes
     to notifications tab.
-  * Users should have a screen name
+* **TODO**
   * I can start a conversation from org page
-  * Message / conversation notifications.
   * Conversation page should be able to reply in the same page.
-    * Message editing
-  * deleting final message deletes the conversation
+  * Deleting final message deletes the conversation
   * Users shouldn't see private group related things.
 
 # FUTURE

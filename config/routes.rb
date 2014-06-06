@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   # We redirect GET on join to show to satisfy user_required use case.
   get   '/groups/:id/join' => 'groups#show'
 
-  resources :notifications, only: [ :destroy ]
+  post 'notify' => 'notifications#notify', as: :notify
 
   resources :conversations, only: [ :show ]
 

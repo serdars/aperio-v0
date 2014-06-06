@@ -1,6 +1,6 @@
 class NotificationsController < ApplicationController
-  def destroy
-    Notification.find(params[:id]).destroy()
+  def notify
+    Notification.destroy(params[:ids])
 
     respond_to do |format|
       format.json { render json: { } }
