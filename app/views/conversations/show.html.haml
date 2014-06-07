@@ -2,12 +2,12 @@
   .col-md-offset-1.col-md-10
     .list-group-item
       = render partial: "conversations/header", locals: {conversation: @conversation}
-    - @conversation.messages.each do |message|
-      .list-group-item
-        %h5.list-group-item-heading
-          %a{:href => user_path(message.user)}
-            #{message.user.email}
-          %small
-            posted on #{l message.created_at, format: :short}
-        %p.list-group-item-text
-          = message.body
+    .messages
+      - @conversation.messages.each do |message|
+        = render partial: "conversations/message", locals: {message: message}
+    .list-group-item
+      %p.list-group-item-text
+        %textarea.form-control.no-resize{:id => "message", :placeholder => "Type your message here...", :rows => "5"}
+    .list-group-item
+      %button.center-block.btn.btn-primary.a-post-message{:type => "button", :data => {conversation: @conversation.id}}
+        Post Message

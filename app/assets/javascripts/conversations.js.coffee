@@ -20,3 +20,14 @@ $ () ->
       success: (result) ->
         document.location.href = result.uri
     }
+
+  $('.a-post-message').click (event) ->
+    $.ajax {
+      url: '/conversations/' + $(this).data("conversation") + '/post'
+      data:
+        message: $("#message").val()
+      type: 'POST'
+      success: (result) ->
+        $(".messages").append(result)
+        $("#message").val("")
+    }

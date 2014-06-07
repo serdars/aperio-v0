@@ -32,6 +32,20 @@ class ConversationsController < ApplicationController
       format.html { redirect_to conversation_path(conversation)}
       format.json { render json: { uri: conversation_path(conversation) } }
     end
+  end
 
+  def post
+    @message = Message.new({
+      conversation: Conversation.find(params[:id]),
+      user: current_user,
+      body: params[:message]
+    })
+
+    @message.save!
+
+    respond_to do |format|
+      format.html { render partial: "conversations/message", locals: {message: @message} }
+      format.json { render json: @message }
+    end
   end
 end

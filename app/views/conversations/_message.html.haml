@@ -1,0 +1,8 @@
+.list-group-item
+  %h5.list-group-item-heading
+    %a{:href => user_path(message.user)}
+      #{message.user.email}
+    %small
+      posted on #{l message.created_at, format: :short}
+  %p.list-group-item-text
+    = message.body
