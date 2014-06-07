@@ -1,0 +1,24 @@
+.row
+  .col-md-offset-1.col-md-10
+    .list-group-item
+      %h4.list-group-item-heading
+        .row
+          .col-md-9
+            %input.invisible-input{:id => "title", :placeholder => "Title"}
+          .col-md-2
+            .btn-group
+              %button.btn.btn-primary.dropdown-toggle.a-group-selection{:type => "button", :data => {toggle: "dropdown", id: @organization.default_group.id, name: @organization.default_group.name}}
+                %span.a-selected-group-name
+                  #{@organization.default_group.name}
+                %span.caret
+              %ul.dropdown-menu{:role => "menu"}
+                - @organization.groups.each do |group|
+                  %li
+                    %a.a-select-group{:href => "#", :data => {id: group.id, name: group.name}}
+                      #{group.name}
+    .list-group-item
+      %p.list-group-item-text
+        %textarea.invisible-input{:id => "message", :placeholder => "Type your message here...", :rows => "15"}
+    .list-group-item
+      %button.center-block.btn.btn-primary.btn-lg.a-post-conversation{:type => "button"}
+        Post

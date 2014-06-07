@@ -125,8 +125,8 @@ Example activities:
   * Message / conversation notifications.
   * Header shows the count of "updates" for the user. Clicking takes
     to notifications tab.
-* **TODO**
   * I can start a conversation from org page
+* **TODO**
   * Conversation page should be able to reply in the same page.
   * Deleting final message deletes the conversation
   * Users shouldn't see private group related things.
