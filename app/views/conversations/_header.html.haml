@@ -6,10 +6,10 @@
       %span.label.label-primary
         #{conversation.group.name}
       - if conversation.user == current_user || conversation.group.organization.admin?(current_user)
-        %form.pull-right{:role => "delete_conversation", :action => conversation_path(conversation), :method => :post}
+        %form.pull-right#delete-conversation-form{:role => "delete_conversation", :action => conversation_path(conversation), :method => :post}
           %input{:name => "_method", :type => "hidden", :value => "delete"}
           %input{:name => "authenticity_token", :type => "hidden", :value => form_authenticity_token}
-          %button.btn.btn-info.btn-sm{:type => "submit", :title => "Delete Conversation", :data => {toggle: "tooltip", container: 'body'} }
+          %button.btn.btn-info.btn-sm.delete-conversation-btn{:type => "submit", :title => "Delete Conversation", :data => {toggle: "tooltip", container: 'body'} }
             %i.fa.fa-lg.fa-trash-o
 %h5.list-group-item-heading
   %ul.list-inline

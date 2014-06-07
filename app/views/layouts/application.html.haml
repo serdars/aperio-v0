@@ -20,3 +20,17 @@
                   &times;
                 = flash[:notice]
       = yield
+    .fade.modal#a-alert{:tabindex => "-1", :role => "dialog", "aria-labelledby" => "aAlertLabel", "aria-hidden" => "true"}
+      .modal-dialog.modal-sm
+        .modal-content
+          .modal-header.bg-primary
+            %button.close{:type => "button", "aria-hidden" => true, :data => {dismiss: "modal"}}
+              &times;
+            %h4.modal-title#aAlertLabel
+              Aperio - Are you sure?
+          .modal-body#a-alert-message
+          .modal-footer
+            %button.btn.btn-primary#a-alert-confirm{:type => "button"}
+              Yes
+            %button.btn.btn-default{:type => "button", :data => {dismiss: "modal"} }
+              No

@@ -3,6 +3,19 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $ () ->
+  launchAlert = (message, confirmationHandler, data) ->
+    $("#a-alert-confirm").click (event) ->
+      $("#a-alert").modal("hide")
+      event.preventDefault()
+      confirmationHandler(data)
+
+    $("#a-alert-message").html(message)
+
+    $("#a-alert").modal
+      backdrop: "static"
+      keyboard: true
+      show: true
+
   $(".a-select-group").click (event) ->
     event.preventDefault()
     $(".a-group-selection").data("id", $(this).data("id"))
@@ -33,15 +46,24 @@ $ () ->
     }
 
   $(".a-delete-post").click (event) ->
-    $.ajax {
-      url: '/conversations/' + $(this).data("conversation") + ".json"
-      context: this
-      data:
-        message: $(this).data("id")
-      type: 'DELETE'
-      success: (result) ->
-        $(this).tooltip("destroy")
-        $(this).parents(".list-group-item").remove()
-        if result.uri
-          document.location.href = result.uri
-    }
+    launchAlert "You are about to delete a message. <br> Are you sure?", (message) ->
+      $.ajax {
+        url: '/conversations/' + $(message).data("conversation") + ".json"
+        context: message
+        data:
+          message: $(message).data("id")
+        type: 'DELETE'
+        success: (result) ->
+          $(message).tooltip("destroy")
+          $(message).parents(".list-group-item").remove()
+          if result.uri
+            document.location.href = result.uri
+      }
+    , this
+
+  $(".delete-conversation-btn").click (event) ->
+    event.preventDefault()
+    launchAlert "You are about to delete a conversation. <br> Are you sure?", (deleteButton) ->
+      $(deleteButton).parent().submit()
+    , this
+    false
