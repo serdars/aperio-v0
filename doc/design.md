@@ -127,8 +127,8 @@ Example activities:
     to notifications tab.
   * I can start a conversation from org page
   * Conversation page should be able to reply in the same page.
-* **TODO**
   * Deleting final message deletes the conversation
+* **TODO**
   * Users shouldn't see private group related things.
 
 # FUTURE

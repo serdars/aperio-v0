@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   post 'notify' => 'notifications#notify', as: :notify
 
-  resources :conversations, only: [ :show, :new, :create ]
+  resources :conversations, only: [ :show, :new, :create, :destroy ]
   post '/conversations/:id/post' => 'conversations#post', as: :conversation_post
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -48,4 +48,21 @@ class ConversationsController < ApplicationController
       format.json { render json: @message }
     end
   end
+
+  def destroy
+    @conversation = Conversation.find(params[:id])
+
+    if params[:message].nil? || @conversation.messages.count == 1
+      redirect_path = organization_path(@conversation.group.organization)
+      @conversation.destroy()
+    else
+      Message.find(params[:message]).destroy
+      redirect_path = nil
+    end
+
+    respond_to do |format|
+      format.html { redirect_to redirect_path }
+      format.json { render json: { uri: redirect_path } }
+    end
+  end
 end

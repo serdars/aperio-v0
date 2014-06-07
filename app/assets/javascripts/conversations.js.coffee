@@ -31,3 +31,17 @@ $ () ->
         $(".messages").append(result)
         $("#message").val("")
     }
+
+  $(".a-delete-post").click (event) ->
+    $.ajax {
+      url: '/conversations/' + $(this).data("conversation") + ".json"
+      context: this
+      data:
+        message: $(this).data("id")
+      type: 'DELETE'
+      success: (result) ->
+        $(this).tooltip("destroy")
+        $(this).parents(".list-group-item").remove()
+        if result.uri
+          document.location.href = result.uri
+    }

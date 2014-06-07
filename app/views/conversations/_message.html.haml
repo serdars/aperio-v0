@@ -4,5 +4,8 @@
       #{message.user.email}
     %small
       posted on #{l message.created_at, format: :short}
+    - if message.user == current_user || message.conversation.group.organization.admin?(current_user)
+      %button.btn.btn-info.btn-sm.pull-right.a-delete-post{:type => "submit", :title => "Delete Post", :data => {toggle: "tooltip", container: 'body', id: message.id, conversation: message.conversation.id} }
+        %i.fa.fa-lg.fa-trash-o
   %p.list-group-item-text
     = message.body
