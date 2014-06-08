@@ -1,23 +1,28 @@
 .row
   .col-md-offset-1.col-md-7
-    .row
-      .col-md-9
+    %ul.list-unstyled
+      %li
         %h2
+          .btn-group.pull-right.a-corner-action
+            - if @organization.admin?(current_user)
+              %a.btn.btn-warning{:href => organization_manage_path(@organization), :title => "Manage Organization", :data => {toggle: "tooltip", container: 'body'} }
+                %i.fa.fa-gear.fa-lg
+            %a.btn.btn-info{:href => new_conversation_path(organization: @organization.id), :title => "Start Conversation", :data => {toggle: "tooltip", container: 'body'} }
+              %i.fa.fa-pencil.fa-lg
+          - unless @organization.member?(current_user)
+            .pull-right
+              = render partial: "shared/button_to", locals: {target: organization_join_path(@organization), value: "", icon: "fa fa-sign-in fa-lg", block:false, title: "Join"}
           = @organization.name
-          %br
+      %li
+        %h4
+          - @organization.tags.each do |tag|
+            %span.label.label-info
+              = tag.name
+      %li
+        %h4
           %a{:href => @organization.website}
             %small
               = @organization.website
-      .col-md-3
-        .btn-group.pull-right
-          - if @organization.admin?(current_user)
-            %a.btn.btn-warning{:href => organization_manage_path(@organization), :title => "Manage Organization", :data => {toggle: "tooltip", container: 'body'} }
-              %i.fa.fa-gear.fa-lg
-          %a.btn.btn-info{:href => new_conversation_path(organization: @organization.id), :title => "Start Conversation", :data => {toggle: "tooltip", container: 'body'} }
-            %i.fa.fa-pencil.fa-lg
-        - unless @organization.member?(current_user)
-          .pull-right
-            = render partial: "shared/button_to", locals: {target: organization_join_path(@organization), value: "", icon: "fa fa-sign-in fa-lg", block:false, title: "Join"}
     %p
       = @organization.description
     = render partial: "conversations/index", locals: { conversations: filter_conversations(@organization.conversations, group: @group) }
