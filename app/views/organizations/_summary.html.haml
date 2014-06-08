@@ -1,14 +1,14 @@
-.thumbnail.a-hide-overflow.a-organization-thumbnail
+.thumbnail.a-organization-thumbnail
   .caption
     %h4
       %a{:href => organization_path(organization)}
         = organization.name
-    %p
-      %h4
-        - organization.tags.each do |tag|
-          %span.label.label-info
-            = tag.name
-    %p
+    - organization.tags.each do |tag|
+      .pull-left
+        %span.label.label-info
+          = tag.name
+    .clearfix
+    %small
       %a{:href => organization.website}
         = organization.website
     %p
