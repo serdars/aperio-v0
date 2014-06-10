@@ -36,11 +36,11 @@
 
 # Milestone 3: Optimization & Bugfix
 * **DONE**
-* **TODO**
   * Header should include a dropdown with organizations including the number
     of notifications in each organization.
     * Dropdown should focus on the organization when looking at something
       related to the organization
+* **TODO**
   * "Join Organization" button should be visible below the groups if not a
     member of the organization.
   * Users can post messages only to the conversations in groups they are member

@@ -16,6 +16,24 @@ class User < ActiveRecord::Base
     groups.map{|g| g.organization}.uniq
   end
 
+  def conversation_notification_count_by_org
+    collection = { }
+
+    organizations.each do |org|
+      collection[org] = conversation_notifications(org).count
+    end
+
+    collection
+  end
+
+  def conversation_notifications(org = nil)
+    if org
+        Notification.where(user: self, organization: org, notifiable_type: "Conversation")
+    else
+      Notification.where(user: self, notifiable_type: "Conversation")
+    end
+  end
+
   def memberships_by_org
     collection = { }
 

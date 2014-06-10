@@ -10,6 +10,7 @@ class Message < ActiveRecord::Base
         if group_user != user
           Notification.new({
             user: group_user,
+            organization: conversation.group.organization,
             subject: user,
             action: "post_message",
             notifiable: conversation

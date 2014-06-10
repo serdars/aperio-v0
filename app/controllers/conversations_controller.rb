@@ -1,6 +1,7 @@
 class ConversationsController < ApplicationController
   def show
     @conversation = Conversation.find(params[:id])
+    @organization = @conversation.group.organization
 
     respond_to do |format|
       format.html
