@@ -40,15 +40,15 @@
     of notifications in each organization.
     * Dropdown should focus on the organization when looking at something
       related to the organization
-* **TODO**
   * "Join Organization" button should be visible below the groups if not a
     member of the organization.
+  * Private groups should display details if the current_user is a member.
+  * Groups links should have the count of the notifications under them.
+* **TODO**
   * Users can post messages only to the conversations in groups they are member
     of.
-  * Groups links should have the count of the notifications under them.
   * Conversations with notifications should be visually different from the ones
     without notifications and they should be at the top.
-  * Private groups should display details if the current_user is a member.
   * In the profile page conversations should be in the historical order new to
     old.
   * Users shouldn't see private group related things.

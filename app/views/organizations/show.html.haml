@@ -12,7 +12,8 @@
           - unless @organization.member?(current_user)
             .pull-right
               = render partial: "shared/button_to", locals: {target: organization_join_path(@organization), value: "", icon: "fa fa-sign-in fa-lg", block:false, title: "Join"}
-          = @organization.name
+          %a{:href => organization_path(@organization)}
+            = @organization.name
       %li
         %h4
           - @organization.tags.each do |tag|
@@ -29,17 +30,35 @@
   .col-md-3
     %h3
       Groups
-    .list-group
-      - @organization.groups.each do |group|
-        - if group.visible
-          %a.list-group-item{:href => organization_path(@organization, group: group), :class => ("active" if @group == group)}
-            = group.name
-            - if @organization.member?(current_user) && !group.member?(current_user) && !group.private
-              .pull-right
-                = render partial: "shared/button_to", locals: {target: group_join_path(group), value: "", icon: "fa fa-sign-in fa-lg", block: false, title: "Join"}
-            %br
-            %small
-              - if group.private
-                Private Group
-              - else
-                = "#{group.memberships.count} members #{'including you' if group.member?(current_user)}, #{group.conversations.count} conversations"
+    - if @organization.member?(current_user)
+      .list-group
+        - @organization.groups.each do |group|
+          - if group.visible || group.member?(current_user)
+            %a.list-group-item{:href => organization_path(@organization, group: group), :class => ("active" if @group == group)}
+              = group.name
+              - if !group.member?(current_user) && !group.private
+                .pull-right
+                  = render partial: "shared/button_to", locals: {target: group_join_path(group), value: "", icon: "fa fa-sign-in fa-lg", block: false, title: "Join"}
+              - if group.member?(current_user)
+                .pull-right
+                  = render partial: "shared/badge", locals: {count: current_user.group_conversation_notifications(group).count}
+              %br
+              %small
+                - if group.private && !group.member?(current_user)
+                  Private Group
+                - else
+                  = "#{group.memberships.count} members #{'including you' if group.member?(current_user)}, #{group.conversations.count} conversations"
+    - else
+      %ul.list-group
+        - @organization.groups.each do |group|
+          - if group.visible
+            %li.list-group-item
+              #{group.name}
+              %br
+              %small
+                - if group.private
+                  Private Group
+                - else
+                  = "#{group.memberships.count} members #{'including you' if group.member?(current_user)}, #{group.conversations.count} conversations"
+
+      = render partial: "shared/button_to", locals: {target: group_join_path(@organization.default_group), value: "Join Organization", icon: "", block: true, title: "Join Organization"}

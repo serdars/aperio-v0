@@ -56,8 +56,9 @@ unique_generate(20, :email).each do |user_email|
   User.new(email: user_email, password: '1234', password_confirmation: '1234').save!
 end
 
+organization_count = 20
 # Create some random organizations
-20.times do
+organization_count.times do
   org = Organization.new({
     name: Faker::Company.name,
     description: Faker::Lorem.paragraphs(rand(5) + 1).join("\n"),
@@ -68,12 +69,15 @@ end
   org.save!
 
   # Add an admin to the orgs
-  admin = Membership.new(user: admin_user, group: org.admin_group)
-  admin.save!
+  Membership.new(user: admin_user, group: org.default_group).save!
+  Membership.new(user: admin_user, group: org.admin_group).save!
+end
 
-  # Randomly add some users
-  org.groups.each do |group|
-    User.all.sample(rand(5) + 1).each do |user|
+# Randomly add some users to the organizations
+User.all.each do |user|
+  Organization.all.sample(rand(7) + 2).each do |org|
+    Membership.new(user: user, group: org.default_group).save!
+    org.groups[1..4].sample(rand(1) + 1).each do |group|
       Membership.new(user: user, group: group).save!
     end
   end
@@ -83,18 +87,20 @@ end
 100.times do
   user = User.all.sample
   group = user.groups.sample
-  conv = Conversation.new({
-    user: user,
-    group: group,
-    title: Faker::Lorem.sentence
-  })
-  conv.save!
+  if user && group
+    conv = Conversation.new({
+      user: user,
+      group: group,
+      title: Faker::Lorem.sentence
+    })
+    conv.save!
 
-  (rand(10) + 2).times do
-    Message.new({
-      user: group.users.sample,
-      conversation: conv,
-      body: Faker::Lorem.paragraphs(rand(5) + 1).join("\n")
-    }).save!
+    (rand(10) + 2).times do
+      Message.new({
+        user: group.users.sample,
+        conversation: conv,
+        body: Faker::Lorem.paragraphs(rand(5) + 1).join("\n")
+      }).save!
+    end
   end
 end

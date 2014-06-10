@@ -34,6 +34,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def group_conversation_notifications(group)
+    notifications = [ ]
+    conversation_notifications(group.organization).each do |notification|
+      notifications << notification if notification.notifiable.group == group
+    end
+    notifications
+  end
+
   def memberships_by_org
     collection = { }
 
