@@ -42,4 +42,4 @@
               %td
                 = user.email
               %td
-                = "Joined at #{membership(@group, user).created_at}"
+                = "Joined at #{l membership(@group, user).created_at, format: :short}"

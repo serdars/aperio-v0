@@ -44,14 +44,14 @@
     member of the organization.
   * Private groups should display details if the current_user is a member.
   * Groups links should have the count of the notifications under them.
-* **TODO**
-  * Users can post messages only to the conversations in groups they are member
-    of.
   * Conversations with notifications should be visually different from the ones
     without notifications and they should be at the top.
   * In the profile page conversations should be in the historical order new to
     old.
+  * Users can post messages only to the conversations in groups they are member
+    of.
   * Users shouldn't see private group related things.
+* **TODO**
   * Footer that describes Aperio dictionary meaning and one liner tool pitch.
     Link to email for feedback.
 

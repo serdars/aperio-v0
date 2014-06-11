@@ -53,14 +53,4 @@ class User < ActiveRecord::Base
     collection
   end
 
-  def conversations_by_org
-    collection = { }
-
-    conversations.each do |conv|
-      collection[conv.group.organization] ||= [ ]
-      collection[conv.group.organization] << conv
-    end
-
-    collection
-  end
 end

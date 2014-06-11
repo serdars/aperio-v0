@@ -21,7 +21,7 @@
                   %a.mark-all-notifications{:href => "#", :title => "Mark all as read", :data => {toggle: "tooltip", ids: @user.notifications.map{|a| a.id}} }
                     %i.fa.fa-check.fa-2x
                   #{@user.notifications.count} Notifications
-                - @user.notifications.each do |notification|
+                - @user.notifications.order(created_at: :desc).each do |notification|
                   %li.list-group-item
                     %a.mark-notification{:href => "#", :title => "Mark as read", :data => {toggle: "tooltip", id: notification.id} }
                       %i.fa.fa-check
@@ -55,17 +55,21 @@
           .col-md-5
             %h3.text-info
               = "#{@user.conversations.count} Conversations, #{@user.messages.count} Messages"
-            - @user.conversations_by_org.each do |organization, conversations|
-              %h4
-                %a{:href => organization_path(organization)}
-                  = organization.name
+            - @user.conversations.order(created_at: :desc).each do |conversation|
               .row
                 .col-md-offset-1.col-md-11
                   %ul.list-unstyled
-                    - conversations.each do |conversation|
-                      %li
-                        %a{:href => conversation_path(conversation)}
-                          = conversation.title
-                      %li
-                        %small
-                          = "Started at #{l conversation.created_at, format: :short}"
+                    %li
+                      %a{:href => conversation_path(conversation)}
+                        = conversation.title
+                    %li
+                      %small
+                        Posted to
+                        %a{:href => organization_path(conversation.group.organization, group: conversation.group)}
+                          #{conversation.group.name}
+                        of
+                        %a{:href => organization_path(conversation.group.organization)}
+                          #{conversation.group.organization.name}
+                    %li
+                      %small
+                        = "Started at #{l conversation.created_at, format: :short}"

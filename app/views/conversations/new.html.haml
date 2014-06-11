@@ -13,9 +13,10 @@
                 %span.caret
               %ul.dropdown-menu{:role => "menu"}
                 - @organization.groups.each do |group|
-                  %li
-                    %a.a-select-group{:href => "#", :data => {id: group.id, name: group.name}}
-                      #{group.name}
+                  - if group.member?(current_user)
+                    %li
+                      %a.a-select-group{:href => "#", :data => {id: group.id, name: group.name}}
+                        #{group.name}
     .list-group-item
       %p.list-group-item-text
         %textarea.form-control.no-resize{:id => "message", :placeholder => "Type your message here...", :rows => "15"}

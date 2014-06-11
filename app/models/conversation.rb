@@ -6,9 +6,7 @@ class Conversation < ActiveRecord::Base
 
   after_destroy :clean_notifications
 
-  protected
-    def clean_notifications
-      Notification.where(notifiable_type: "Conversation", notifiable_id: id).destroy_all
-    end
-
+  def clean_notifications
+    Notification.where(notifiable_type: "Conversation", notifiable_id: id).destroy_all
+  end
 end

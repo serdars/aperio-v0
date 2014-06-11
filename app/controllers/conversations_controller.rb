@@ -3,6 +3,8 @@ class ConversationsController < ApplicationController
     @conversation = Conversation.find(params[:id])
     @organization = @conversation.group.organization
 
+    @conversation.clean_notifications
+
     respond_to do |format|
       format.html
       format.json { render json: @conversation }
