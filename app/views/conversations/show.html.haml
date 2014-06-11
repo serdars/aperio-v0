@@ -1,5 +1,8 @@
 .row
   .col-md-offset-1.col-md-10
+    %h2
+      %a{:href => organization_path(@organization)}
+        = @organization.name
     .list-group-item
       = render partial: "conversations/header", locals: {conversation: @conversation}
     .messages

@@ -1,4 +1,2 @@
-.row
-  - @organizations.each do |organization|
-    .col-md-3
-      = render partial: "organizations/summary", locals: { organization: organization }
+%a{:href => organizations_path()}
+  ORGS

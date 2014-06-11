@@ -43,9 +43,10 @@ $ () ->
       success: (result) ->
         $(".messages").append(result)
         $("#message").val("")
+        $("[data-toggle='tooltip']").tooltip()
     }
 
-  $(".a-delete-post").click (event) ->
+  $(".messages").on "click", ".a-delete-post", (event) ->
     launchAlert "You are about to delete a message. <br> Are you sure?", (message) ->
       $.ajax {
         url: '/conversations/' + $(message).data("conversation") + ".json"

@@ -1,6 +1,10 @@
 class OrganizationsController < ApplicationController
   before_filter :require_user, :only => :join
 
+  def index
+    @organizations = Organization.all
+  end
+
   def show
     @organization = Organization.find(params[:id])
     @group = params[:group].nil? ? nil : Group.find(params[:group])

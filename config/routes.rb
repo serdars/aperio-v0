@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :users, only: [ :new, :create, :show ]
   delete '/logout' => 'user_sessions#destroy', as: :logout
 
-  resources :organizations, only: [ :show ]
+  resources :organizations, only: [ :show, :index ]
   get   '/organizations/:id/manage' => 'organizations#manage', as: :organization_manage
   post  '/organizations/:id/join' => 'organizations#join', as: :organization_join
   # We redirect GET on join to show to satisfy user_required use case.
