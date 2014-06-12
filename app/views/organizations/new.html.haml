@@ -1,0 +1,18 @@
+.row
+  .col-md-offset-1.col-md-10
+    = form_for @organization, html: { class: "form-horizontal" } do |f|
+      .form-group
+        = f.label :name, "Name", class: "col-sm-3 control-label"
+        .col-sm-6
+          = f.text_field :name, class: "form-control", placeholder: "Name"
+      .form-group
+        = f.label :website, "Website", class: "col-sm-3 control-label"
+        .col-sm-6
+          = f.text_field :website, class: "form-control", placeholder: "Website"
+      .form-group
+        = f.label :description, "Description", class: "col-sm-3 control-label"
+        .col-sm-6
+          = f.text_area :description, class: "form-control", placeholder: "Description", rows: 10
+      .form-group
+        .col-sm-offset-3.col-sm-9
+          = f.submit "Create Organization", class: "btn btn-primary"

@@ -51,9 +51,6 @@
   * Users can post messages only to the conversations in groups they are member
     of.
   * Users shouldn't see private group related things.
-* **TODO**
-  * Footer that describes Aperio dictionary meaning and one liner tool pitch.
-    Link to email for feedback.
 
 # FUTURE
 

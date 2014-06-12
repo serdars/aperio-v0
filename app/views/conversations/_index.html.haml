@@ -1,6 +1,13 @@
-.list-group
-  - conversations.each do |conversation|
-    %a.list-group-item{:href => conversation_path(conversation), :class => ("list-group-item-info" if has_notification?(conversation, user))}
-      = render partial: "conversations/header", locals: {conversation: conversation}
-      %p.list-group-item-text
-        #{conversation.messages[0].body[0..50]} #{"..." if conversation.messages[0].body.length > 50 }
+- if conversations.empty?
+  - if organization.member?(user) && (group.nil? || group.member?(user))
+    .row
+      .col-md-offset-4.col-md-4
+        %a.btn.btn-primary.btn-lg{:href => new_conversation_path(organization: organization.id)}
+          Start a Conversation
+- else
+  .list-group
+    - conversations.each do |conversation|
+      %a.list-group-item{:href => conversation_path(conversation), :class => ("list-group-item-info" if has_notification?(conversation, user))}
+        = render partial: "conversations/header", locals: {conversation: conversation}
+        %p.list-group-item-text
+          #{conversation.messages[0].body[0..50]} #{"..." if conversation.messages[0].body.length > 50 }

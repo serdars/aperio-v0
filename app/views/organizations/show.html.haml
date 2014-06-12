@@ -7,7 +7,7 @@
             - if @organization.admin?(current_user)
               %a.btn.btn-warning{:href => organization_manage_path(@organization), :title => "Manage Organization", :data => {toggle: "tooltip", container: 'body'} }
                 %i.fa.fa-gear.fa-lg
-            - if @organization.member?(current_user)
+            - if @organization.member?(current_user) && (@group.nil? || @group.member?(current_user))
               %a.btn.btn-info{:href => new_conversation_path(organization: @organization.id), :title => "Start Conversation", :data => {toggle: "tooltip", container: 'body'} }
                 %i.fa.fa-pencil.fa-lg
           - unless @organization.member?(current_user)
@@ -27,7 +27,7 @@
               = @organization.website
     %p
       = @organization.description
-    = render partial: "conversations/index", locals: { conversations: filter_conversations(@organization.conversations, group: @group, user: current_user), user: current_user }
+    = render partial: "conversations/index", locals: { conversations: filter_conversations(@organization.conversations, group: @group, user: current_user), user: current_user, organization: @organization, group: @group }
   .col-md-3
     %h3
       Groups
