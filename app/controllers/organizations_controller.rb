@@ -25,7 +25,7 @@ class OrganizationsController < ApplicationController
 
   def show
     @organization = Organization.find(params[:id])
-    @group = params[:group].nil? ? nil : Group.find(params[:group])
+    @group = params[:group].nil? ? @organization.default_group : Group.find(params[:group])
 
     respond_to do |format|
       format.html

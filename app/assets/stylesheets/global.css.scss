@@ -2,6 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+html,
+body {
+  overflow-x: hidden; /* Prevent scroll on narrow devices */
+}
+
 body {
   padding-top: 70px;
 }
@@ -17,4 +22,8 @@ body {
 
 .indent-left {
   margin-left: 50px;
+}
+
+.list-group-item .badge {
+  float: none;
 }

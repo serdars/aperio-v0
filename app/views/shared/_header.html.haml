@@ -1,5 +1,5 @@
 %nav.ap-navbar.ap-navbar-default.ap-navbar-fixed-top{:role => "navigation"}
-  .container-fluid
+  .container
     .ap-navbar-header
       %a.ap-navbar-brand{:href => root_path()}
         aperio
@@ -23,7 +23,7 @@
             %i.fa.fa-lg.fa-sign-in
   - if current_user
     #inbox-orgs.row.row-offcanvas.row-offcanvas-right
-      .sidebar-offcanvas.col-xs-6.col-sm-3
+      .sidebar-offcanvas
         .list-group
           - current_user.conversation_notification_count_by_org.each do |organization, count|
             %a.list-group-item{:href => organization_path(organization)}

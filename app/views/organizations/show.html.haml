@@ -1,5 +1,5 @@
-.row
-  .col-md-offset-1.col-md-7
+#org-row.row.mo-row-offcanvas.mo-row-offcanvas-right
+  .col-md-offset-1.col-md-7.col-sm-8
     %ul.list-unstyled
       %li
         %h2
@@ -10,6 +10,8 @@
             - if @organization.member?(current_user) && (@group.nil? || @group.member?(current_user))
               %a.btn.btn-info{:href => new_conversation_path(organization: @organization.id), :title => "Start Conversation", :data => {toggle: "tooltip", container: 'body'} }
                 %i.fa.fa-pencil.fa-lg
+            %a.btn.btn-info.hidden-md.hidden-lg{:href => "#", :title => "Groups", :data => {tooltip: "tooltip", container: 'body', toggle: "offcanvas", target: "#org-row"} }
+              %i.fa.fa-group.fa-lg
           - unless @organization.member?(current_user)
             .pull-right
               = render partial: "shared/button_to", locals: {target: organization_join_path(@organization), value: "", icon: "fa fa-sign-in fa-lg", block:false, title: "Join"}
@@ -27,8 +29,16 @@
               = @organization.website
     %p
       = @organization.description
+    %h4
+      #{@group.name}
+      - if !@group.private || @group.member?(current_user)
+        %small
+          #{@group.memberships.count} members
+    - if @group.private && !@group.member?(current_user)
+      .alert.alert-info
+        This group is private and membership is by invitation only. Please contact the owners of the organization if you would like to be added to this group.
     = render partial: "conversations/index", locals: { conversations: filter_conversations(@organization.conversations, group: @group, user: current_user), user: current_user, organization: @organization, group: @group }
-  .col-md-3
+  .mo-sidebar-offcanvas.col-xs-6.col-sm-4.col-md-3
     %h3
       Groups
     - if @organization.member?(current_user)
@@ -37,18 +47,19 @@
           - if group.visible || group.member?(current_user)
             %a.list-group-item{:href => organization_path(@organization, group: group), :class => ("active" if @group == group)}
               = group.name
+              - if group.member?(current_user)
+                = render partial: "shared/badge", locals: {count: current_user.group_conversation_notifications(group).count}
+                .pull-right
+                  %i.fa.fa-lg.fa-check-square-o{:title => "You are a member.", :data => {toggle: "tooltip"}}
               - if !group.member?(current_user) && !group.private
                 .pull-right
                   = render partial: "shared/button_to", locals: {target: group_join_path(group), value: "", icon: "fa fa-sign-in fa-lg", block: false, title: "Join"}
-              - if group.member?(current_user)
-                .pull-right
-                  = render partial: "shared/badge", locals: {count: current_user.group_conversation_notifications(group).count}
               %br
               %small
                 - if group.private && !group.member?(current_user)
                   Private Group
                 - else
-                  = "#{group.memberships.count} members #{'including you' if group.member?(current_user)}, #{group.conversations.count} conversations"
+                  = "#{group.memberships.count} members, #{group.conversations.count} conversations"
     - else
       %ul.list-group
         - @organization.groups.each do |group|

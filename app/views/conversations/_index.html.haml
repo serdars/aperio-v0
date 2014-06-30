@@ -1,9 +1,21 @@
 - if conversations.empty?
-  - if organization.member?(user) && (group.nil? || group.member?(user))
-    .row
-      .col-md-offset-4.col-md-4
-        %a.btn.btn-primary.btn-lg{:href => new_conversation_path(organization: organization.id)}
-          Start a Conversation
+  - if organization.member?(user)
+    - if group.nil? || group.member?(user)
+      .row
+        .alert.alert-info
+          There are no conversations yet in this group.
+        %center
+          %a.btn.btn-primary.btn-lg{:href => new_conversation_path(organization: organization.id)}
+            Start a Conversation
+    - elsif !group.private
+      .row
+        .alert.alert-info
+          You are not a member of this group yet
+        %center
+          %form.form-inline{:role => "button_to", :action => group_join_path(group), :method => :post}
+            %input{:name => "authenticity_token", :type => "hidden", :value => form_authenticity_token}
+            %button.btn.btn-primary.btn-lg{:type => "submit", :title => "Join Group", :data => {toggle: "tooltip"}}
+              Join Group
 - else
   .list-group
     - conversations.each do |conversation|
