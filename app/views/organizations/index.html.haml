@@ -1,4 +1,5 @@
 .row
-  - @organizations.each do |organization|
+  - @organizations.each_slice(@organizations.count / 4) do |organizations_group|
     .col-md-3
-      = render partial: "organizations/summary", locals: { organization: organization }
+      - organizations_group.each do |organization|
+        = render partial: "organizations/summary", locals: { organization: organization }

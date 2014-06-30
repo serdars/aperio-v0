@@ -1,4 +1,4 @@
-.thumbnail.a-organization-thumbnail
+.thumbnail.ap-org-summary{:data => {organization_uri: organization_path(organization)}}
   .caption
     %h4
       %a{:href => organization_path(organization)}
@@ -8,8 +8,13 @@
         %span.label.label-info
           = tag.name
     .clearfix
-    %small
-      %a{:href => organization.website}
-        = organization.website
-    %p
-      = organization.description
+    %ul.list-unstyled
+      %li
+        %small
+          %a{:href => organization.website}
+            = organization.website
+      %li
+        = organization.summary
+      %li
+        %small
+          #{organization.default_group.memberships.count} Members / #{organization.conversations.count} Conversations

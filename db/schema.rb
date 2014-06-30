@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140610065855) do
+ActiveRecord::Schema.define(version: 20140629184048) do
 
   create_table "conversations", force: true do |t|
     t.string   "title",      null: false
@@ -58,11 +58,12 @@ ActiveRecord::Schema.define(version: 20140610065855) do
   end
 
   create_table "organizations", force: true do |t|
-    t.string   "name",        null: false
-    t.text     "description", null: false
-    t.string   "website",     null: false
+    t.string   "name",                    null: false
+    t.text     "description",             null: false
+    t.string   "website",                 null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "summary",     limit: 255
   end
 
   create_table "tag_assignments", force: true do |t|

@@ -61,6 +61,7 @@ organization_count = 20
 organization_count.times do
   org = Organization.new({
     name: Faker::Company.name,
+    summary: Faker::Lorem.sentences(2).join("\n"),
     description: Faker::Lorem.paragraphs(rand(5) + 1).join("\n"),
     website: Faker::Internet.url,
     tags: Tag.all.sample(rand(5) + 2)

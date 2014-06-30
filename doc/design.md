@@ -35,27 +35,43 @@
 * Deleting final message deletes the conversation
 
 # Milestone 3: Optimization & Bugfix
+* Header should include a dropdown with organizations including the number
+  of notifications in each organization.
+  * Dropdown should focus on the organization when looking at something
+    related to the organization
+* "Join Organization" button should be visible below the groups if not a
+  member of the organization.
+* Private groups should display details if the current_user is a member.
+* Groups links should have the count of the notifications under them.
+* Conversations with notifications should be visually different from the ones
+  without notifications and they should be at the top.
+* In the profile page conversations should be in the historical order new to
+  old.
+* Users can post messages only to the conversations in groups they are member
+  of.
+* Users shouldn't see private group related things.
+
+# Milestone 4: Mobile
+
+## Pages
 * **DONE**
-  * Header should include a dropdown with organizations including the number
-    of notifications in each organization.
-    * Dropdown should focus on the organization when looking at something
-      related to the organization
-  * "Join Organization" button should be visible below the groups if not a
-    member of the organization.
-  * Private groups should display details if the current_user is a member.
-  * Groups links should have the count of the notifications under them.
-  * Conversations with notifications should be visually different from the ones
-    without notifications and they should be at the top.
-  * In the profile page conversations should be in the historical order new to
-    old.
-  * Users can post messages only to the conversations in groups they are member
-    of.
-  * Users shouldn't see private group related things.
+* Mobile organizations page
+* **TODO**
+  * Mobile organization page
+  * User Profile Page: (looks like organization page)
+    * Notifications doesn't include email but can be more generic like X wanted to join this group
+    * Separate notifications from profile
+  * Mobile conversation page
+  * Mobile start conversation page
+  * "This group is private and you can't see the conversations."
+  * Conversation page doesn't post message if not signed in.
+  * Welcome Page:
+    * Branding & Vision
+    * Value proposition & action for organizations & people
 
 # FUTURE
 
 * Search Organizations
-
 * Conversations with individuals
 * Create organizations
 * Create Groups
