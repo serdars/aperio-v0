@@ -17,6 +17,10 @@ class UserSessionsController < ApplicationController
 
   def destroy
     current_user_session.destroy
-    redirect_back_or_default root_path
+
+    respond_to do |format|
+      format.html { redirect_back_or_default root_path }
+      format.json { render json: { uri: root_path() } }
+    end
   end
 end

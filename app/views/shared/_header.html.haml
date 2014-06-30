@@ -1,47 +1,29 @@
-%nav.navbar.navbar-default.navbar-fixed-top{:role => "navigation"}
+%nav.ap-navbar.ap-navbar-default.ap-navbar-fixed-top{:role => "navigation"}
   .container-fluid
-    .navbar-header
-      %a.navbar-brand{:href => root_path()}
+    .ap-navbar-header
+      %a.ap-navbar-brand{:href => root_path()}
         aperio
-    .collapse.navbar-collapse
-      - if current_user
-        %ul.nav.navbar-nav.navbar-right
-          %li
-            %p.navbar-text
-              %a.navbar-link{:href => user_path(current_user, tab: "timeline")}
-                #{current_user.email}
-              %a.navbar-link{:href => user_path(current_user, tab: "notifications")}
-                = render partial: "shared/badge", locals: {count: current_user.notifications.count}
-          %li.dropdown
-            %a.dropdown-toggle{:type => "button", :data => {toggle: "dropdown"}}
-              - if @organization
-                #{@organization.name}
-                = render partial: "shared/badge", locals: {count: current_user.conversation_notifications(@organization).count}
-              - else
-                Inbox
-                = render partial: "shared/badge", locals: {count: current_user.conversation_notifications.count}
-              %span.caret
-            %ul.dropdown-menu{:role => "menu"}
-              - if @organization
-                %li
-                  %a{:href => new_conversation_path(organization: @organization.id)}
-                    Start Conversation
-                %li.divider
-                %li.dropdown-header
-                  Inbox
-              - current_user.conversation_notification_count_by_org.each do |organization, count|
-                %li
-                  %a{:href => organization_path(organization)}
-                    = render partial: "shared/badge", locals: {count: count}
-                    #{organization.name}
-          %li
-            %form.navbar-form{:role => "logout", :action => logout_path(), :method => :post}
-              %input{:name => "_method", :type => "hidden", :value => "delete"}
-              %input{:name => "authenticity_token", :type => "hidden", :value => form_authenticity_token}
-              %button.btn.btn-info{:type => "submit", :title => "Logout", :data => {toggle: "tooltip", placement: "bottom"} }
-                %i.fa.fa-lg.fa-power-off
-      - else
-        %ul.nav.navbar-nav.navbar-right
-          %li
-            %a{:href => new_user_path()}
-              Sign In
+    - if current_user
+      %ul.ap-nav.ap-navbar-nav.ap-navbar-right
+        %li
+          %a{:href => user_path(current_user, tab: "timeline"), :title => current_user.email, :data => {toggle: "tooltip", placement: "bottom"}}
+            %i.fa.fa-lg.fa-user
+            = render partial: "shared/badge", locals: {count: current_user.notifications.count}
+        %li.dropdown
+          %a.dropdown-toggle{:type => "button", :title => "Inbox", :data => {toggle: "dropdown", tooltip: "tooltip", placement: "bottom"}}
+            %i.fa.fa-lg.fa-inbox
+            = render partial: "shared/badge", locals: {count: current_user.conversation_notifications.count}
+          %ul.dropdown-menu{:role => "menu"}
+            - current_user.conversation_notification_count_by_org.each do |organization, count|
+              %li
+                %a{:href => organization_path(organization)}
+                  = render partial: "shared/badge", locals: {count: count}
+                  #{organization.name}
+        %li
+          %a.ap-logout{:href => "#", :title => "Sign out", :data => {toggle: "tooltip", placement: "bottom"}}
+            %i.fa.fa-lg.fa-sign-out
+    - else
+      %ul.ap-nav.ap-navbar-nav.ap-navbar-right
+        %li
+          %a{:href => new_user_path(), :title => "Sign in", :data => {toggle: "tooltip", placement: "bottom"}}
+            %i.fa.fa-lg.fa-sign-in

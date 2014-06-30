@@ -4,6 +4,19 @@
 
 $ () ->
   $("[data-toggle='tooltip']").tooltip()
+  # Sometime toggle is needed for a different control
+  # Alternatively use tooltip in these cases
+  $("[data-tooltip='tooltip']").tooltip()
+
+  $(".ap-logout").click (event) ->
+    $.ajax {
+      url: '/logout.json'
+      type: 'DELETE'
+      success: (result) ->
+        if result.uri
+          document.location.href = result.uri
+    }
+
 
 $ () ->
   token = $('meta[name="csrf-token"]').attr 'content'
