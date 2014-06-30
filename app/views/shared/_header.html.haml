@@ -9,16 +9,10 @@
           %a{:href => user_path(current_user, tab: "timeline"), :title => current_user.email, :data => {toggle: "tooltip", placement: "bottom"}}
             %i.fa.fa-lg.fa-user
             = render partial: "shared/badge", locals: {count: current_user.notifications.count}
-        %li.dropdown
-          %a.dropdown-toggle{:type => "button", :title => "Inbox", :data => {toggle: "dropdown", tooltip: "tooltip", placement: "bottom"}}
+        %li
+          %a{:href => "#", :title => "Inbox", :data => {toggle: "offcanvas", target: "#inbox-orgs", tooltip: "tooltip", placement: "bottom"}}
             %i.fa.fa-lg.fa-inbox
             = render partial: "shared/badge", locals: {count: current_user.conversation_notifications.count}
-          %ul.dropdown-menu{:role => "menu"}
-            - current_user.conversation_notification_count_by_org.each do |organization, count|
-              %li
-                %a{:href => organization_path(organization)}
-                  = render partial: "shared/badge", locals: {count: count}
-                  #{organization.name}
         %li
           %a.ap-logout{:href => "#", :title => "Sign out", :data => {toggle: "tooltip", placement: "bottom"}}
             %i.fa.fa-lg.fa-sign-out
@@ -27,3 +21,11 @@
         %li
           %a{:href => new_user_path(), :title => "Sign in", :data => {toggle: "tooltip", placement: "bottom"}}
             %i.fa.fa-lg.fa-sign-in
+  - if current_user
+    #inbox-orgs.row.row-offcanvas.row-offcanvas-right
+      .sidebar-offcanvas.col-xs-6.col-sm-3
+        .list-group
+          - current_user.conversation_notification_count_by_org.each do |organization, count|
+            %a.list-group-item{:href => organization_path(organization)}
+              = render partial: "shared/badge", locals: {count: count}
+              #{organization.name}

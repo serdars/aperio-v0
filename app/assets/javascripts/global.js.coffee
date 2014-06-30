@@ -8,6 +8,10 @@ $ () ->
   # Alternatively use tooltip in these cases
   $("[data-tooltip='tooltip']").tooltip()
 
+  $("[data-toggle='offcanvas']").click () ->
+    target = $(this).data("target")
+    $(target).toggleClass "active"
+
   $(".ap-logout").click (event) ->
     $.ajax {
       url: '/logout.json'
@@ -17,8 +21,6 @@ $ () ->
           document.location.href = result.uri
     }
 
-
-$ () ->
   token = $('meta[name="csrf-token"]').attr 'content'
 
   $.ajaxSetup {
