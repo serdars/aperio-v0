@@ -1,31 +1,34 @@
 #org-row.row.mo-row-offcanvas.mo-row-offcanvas-right
   .col-md-offset-1.col-md-7.col-sm-8
-    %ul.list-unstyled
-      %li
-        %h4
-          .pull-left
-            %a{:href => organization_path(@organization)}
-              #{@organization.name}
-          .btn-group.pull-right.a-corner-action.visible-xs
-            - if @organization.member?(current_user) && (@group.nil? || @group.member?(current_user))
-              %a.btn.btn-info.btn-sm{:href => new_conversation_path(organization: @organization.id), :title => "Start Conversation", :data => {toggle: "tooltip", container: 'body'} }
-                %i.fa.fa-pencil.fa-lg
-            %a.btn.btn-info.btn-sm.visible-xs{:href => "#", :title => "Groups", :data => {tooltip: "tooltip", container: 'body', toggle: "offcanvas", target: "#org-row"} }
-              %i.fa.fa-group.fa-lg
-          .btn-group.pull-right.a-corner-action.visible-sm.visible-md.visible-lg
-            - if @organization.member?(current_user) && (@group.nil? || @group.member?(current_user))
-              %a.btn.btn-info.btn-sm{:href => new_conversation_path(organization: @organization.id), :title => "Start Conversation", :data => {toggle: "tooltip", container: 'body'} }
-                %i.fa.fa-pencil.fa-lg
-            - if @organization.admin?(current_user)
-              %a.btn.btn-info.btn-sm.hidden-xs{:href => organization_manage_path(@organization), :title => "Manage Organization", :data => {toggle: "tooltip", container: 'body'} }
-                %i.fa.fa-gear.fa-lg
-          - unless @organization.member?(current_user)
-            .pull-right
-              = render partial: "shared/button_to", locals: {target: organization_join_path(@organization), value: "", icon: "fa fa-sign-in fa-lg", block:false, title: "Join"}
-          .pull-left
-            %small
-              #{@group.name} - #{@group.memberships.count} members
-          .clearfix
+    %h4
+      .pull-left.ap-horizontal-space
+        %a{:href => organization_path(@organization)}
+          #{@organization.name}
+      .btn-group.pull-right.a-corner-action.visible-xs
+        %a.btn.btn-info.btn-sm.ap-collapse-org-info{:href => "#", :title => "Show / Hide organization info", :data => {tooltip: "tooltip", container: 'body', toggle: "collapse", target: "#organization-info"} }
+          %i.fa.fa-chevron-up.fa-lg
+        - if @organization.member?(current_user) && (@group.nil? || @group.member?(current_user))
+          %a.btn.btn-info.btn-sm{:href => new_conversation_path(organization: @organization.id), :title => "Start Conversation", :data => {toggle: "tooltip", container: 'body'} }
+            %i.fa.fa-pencil.fa-lg
+        %a.btn.btn-info.btn-sm{:href => "#", :title => "Groups", :data => {tooltip: "tooltip", container: 'body', toggle: "offcanvas", target: "#org-row"} }
+          %i.fa.fa-group.fa-lg
+      .btn-group.pull-right.a-corner-action.visible-sm.visible-md.visible-lg
+        %a.btn.btn-info.btn-sm.ap-collapse-org-info{:href => "#", :title => "Show / Hide organization info", :data => {tooltip: "tooltip", container: 'body', toggle: "collapse", target: "#organization-info"} }
+          %i.fa.fa-chevron-up.fa-lg
+        - if @organization.member?(current_user) && (@group.nil? || @group.member?(current_user))
+          %a.btn.btn-info.btn-sm{:href => new_conversation_path(organization: @organization.id), :title => "Start Conversation", :data => {toggle: "tooltip", container: 'body'} }
+            %i.fa.fa-pencil.fa-lg
+        - if @organization.admin?(current_user)
+          %a.btn.btn-info.btn-sm{:href => organization_manage_path(@organization), :title => "Manage Organization", :data => {toggle: "tooltip", container: 'body'} }
+            %i.fa.fa-gear.fa-lg
+      - unless @organization.member?(current_user)
+        .pull-right
+          = render partial: "shared/button_to", locals: {target: organization_join_path(@organization), value: "", icon: "fa fa-sign-in fa-lg", block:false, title: "Join"}
+      .pull-left.ap-horizontal-space
+        %small
+          #{@group.name} - #{@group.memberships.count} members
+      .clearfix
+    %ul.list-unstyled#organization-info.collapse.in
       %li
         %ul.list-inline.label-list
           - @organization.tags.each do |tag|

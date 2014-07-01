@@ -5,3 +5,6 @@
 $ () ->
   $(".ap-org-summary").click (event) ->
     document.location.href = $(this).data("organization-uri")
+
+  $(".ap-collapse-org-info").click (event) ->
+    $(this).children("i").toggleClass "fa-rotate-180"
