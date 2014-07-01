@@ -56,15 +56,16 @@
 ## Pages
 * **DONE**
 * Mobile organizations page
+* Mobile organization page
+* "This group is private and you can't see the conversations."
+* Conversation page doesn't post message if not signed in.
 * **TODO**
-  * Mobile organization page
   * User Profile Page: (looks like organization page)
     * Notifications doesn't include email but can be more generic like X wanted to join this group
     * Separate notifications from profile
   * Mobile conversation page
   * Mobile start conversation page
-  * "This group is private and you can't see the conversations."
-  * Conversation page doesn't post message if not signed in.
+  * Notification count bug fixes
   * Welcome Page:
     * Branding & Vision
     * Value proposition & action for organizations & people

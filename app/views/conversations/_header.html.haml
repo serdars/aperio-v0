@@ -1,32 +1,23 @@
-%h4.list-group-item-heading
-  %ul.list-unstyled
-    %li
-      %h4
-        - if conversation.user == current_user || conversation.group.organization.admin?(current_user)
-          %form.pull-right.a-corner-action#delete-conversation-form{:role => "delete_conversation", :action => conversation_path(conversation), :method => :post}
-            %input{:name => "_method", :type => "hidden", :value => "delete"}
-            %input{:name => "authenticity_token", :type => "hidden", :value => form_authenticity_token}
-            %button.btn.btn-info.btn-sm.delete-conversation-btn{:type => "submit", :title => "Delete Conversation", :data => {toggle: "tooltip", container: 'body'} }
-              %i.fa.fa-lg.fa-trash-o
-        = conversation.title
-    %li
-      %h4
-        %small
-          %strong
-            #{conversation.user.email}
-          posted to
-        %span.label.label-primary
-          #{conversation.group.name}
-        %small
-          group
-%h4.list-group-item-heading
-  %ul.list-inline
-    %li
-      %small
-        #{conversation.messages.count} messages
-    %li
-      %small
-        Started on #{l conversation.created_at, format: :short}
-    %li
-      %small
-        Last message on #{l conversation.updated_at, format: :short}
+%ul.list-unstyled
+  %li
+    - if conversation.user == current_user || conversation.group.organization.admin?(current_user)
+      %form.pull-right.a-corner-action#delete-conversation-form{:role => "delete_conversation", :action => conversation_path(conversation), :method => :post}
+        %input{:name => "_method", :type => "hidden", :value => "delete"}
+        %input{:name => "authenticity_token", :type => "hidden", :value => form_authenticity_token}
+        %button.btn.btn-info.btn-sm.delete-conversation-btn{:type => "submit", :title => "Delete Conversation", :data => {toggle: "tooltip", container: 'body'} }
+          %i.fa.fa-lg.fa-trash-o
+    %h5.text-primary
+      = conversation.title
+  %li
+    %small
+      %strong
+        #{conversation.user.email}
+      posted to
+      %strong
+        #{conversation.group.name}
+      group on
+      %strong
+        #{l conversation.created_at, format: :short}
+  %li
+    %small
+      #{conversation.messages.count} messages. Last message on #{l conversation.updated_at, format: :short}
