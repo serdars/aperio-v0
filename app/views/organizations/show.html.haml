@@ -2,41 +2,44 @@
   .col-md-offset-1.col-md-7.col-sm-8
     %ul.list-unstyled
       %li
-        %h2
-          .btn-group.pull-right.a-corner-action
-            - if @organization.admin?(current_user)
-              %a.btn.btn-warning{:href => organization_manage_path(@organization), :title => "Manage Organization", :data => {toggle: "tooltip", container: 'body'} }
-                %i.fa.fa-gear.fa-lg
+        %h4
+          .pull-left
+            %a{:href => organization_path(@organization)}
+              #{@organization.name}
+          .btn-group.pull-right.a-corner-action.visible-xs
             - if @organization.member?(current_user) && (@group.nil? || @group.member?(current_user))
-              %a.btn.btn-info{:href => new_conversation_path(organization: @organization.id), :title => "Start Conversation", :data => {toggle: "tooltip", container: 'body'} }
+              %a.btn.btn-info.btn-sm{:href => new_conversation_path(organization: @organization.id), :title => "Start Conversation", :data => {toggle: "tooltip", container: 'body'} }
                 %i.fa.fa-pencil.fa-lg
-            %a.btn.btn-info.hidden-md.hidden-lg{:href => "#", :title => "Groups", :data => {tooltip: "tooltip", container: 'body', toggle: "offcanvas", target: "#org-row"} }
+            %a.btn.btn-info.btn-sm.visible-xs{:href => "#", :title => "Groups", :data => {tooltip: "tooltip", container: 'body', toggle: "offcanvas", target: "#org-row"} }
               %i.fa.fa-group.fa-lg
+          .btn-group.pull-right.a-corner-action.visible-sm.visible-md.visible-lg
+            - if @organization.member?(current_user) && (@group.nil? || @group.member?(current_user))
+              %a.btn.btn-info.btn-sm{:href => new_conversation_path(organization: @organization.id), :title => "Start Conversation", :data => {toggle: "tooltip", container: 'body'} }
+                %i.fa.fa-pencil.fa-lg
+            - if @organization.admin?(current_user)
+              %a.btn.btn-info.btn-sm.hidden-xs{:href => organization_manage_path(@organization), :title => "Manage Organization", :data => {toggle: "tooltip", container: 'body'} }
+                %i.fa.fa-gear.fa-lg
           - unless @organization.member?(current_user)
             .pull-right
               = render partial: "shared/button_to", locals: {target: organization_join_path(@organization), value: "", icon: "fa fa-sign-in fa-lg", block:false, title: "Join"}
-          %a{:href => organization_path(@organization)}
-            = @organization.name
-      %li
-        %h4
-          - @organization.tags.each do |tag|
-            %span.label.label-info
-              = tag.name
-      %li
-        %h4
-          %a{:href => @organization.website}
+          .pull-left
             %small
-              = @organization.website
-    %p
-      = @organization.description
-    %h4
-      #{@group.name}
-      - if !@group.private || @group.member?(current_user)
+              #{@group.name} - #{@group.memberships.count} members
+          .clearfix
+      %li
+        %ul.list-inline.label-list
+          - @organization.tags.each do |tag|
+            %li
+              %span.label.label-info
+                = tag.name
+      %li
         %small
-          #{@group.memberships.count} members
-    - if @group.private && !@group.member?(current_user)
-      .alert.alert-info
-        This group is private and membership is by invitation only. Please contact the owners of the organization if you would like to be added to this group.
+          %a{:href => @organization.website}
+            = @organization.website
+      %li
+        #{@organization.summary}
+      %li
+        = @organization.description
     = render partial: "conversations/index", locals: { conversations: filter_conversations(@organization.conversations, group: @group, user: current_user), user: current_user, organization: @organization, group: @group }
   .mo-sidebar-offcanvas.col-xs-6.col-sm-4.col-md-3
     %h3

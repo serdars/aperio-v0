@@ -2,11 +2,19 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$ () ->
-  $("[data-toggle='tooltip']").tooltip()
+toggleTooltip = () ->
   # Sometime toggle is needed for a different control
   # Alternatively use tooltip in these cases
-  $("[data-tooltip='tooltip']").tooltip()
+  if window.matchMedia("(min-width: 768px)").matches
+    $("[data-toggle='tooltip']").tooltip()
+    $("[data-tooltip='tooltip']").tooltip()
+  else
+    $("[data-toggle='tooltip']").tooltip("destroy")
+    $("[data-tooltip='tooltip']").tooltip("destroy")
+
+$ () ->
+  toggleTooltip()
+  $(window).resize(toggleTooltip)
 
   $("[data-toggle='offcanvas']").click () ->
     target = $(this).data("target")

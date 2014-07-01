@@ -1,5 +1,9 @@
 - if conversations.empty?
   - if organization.member?(user)
+    - if group.private && !group.member?(current_user)
+      .row
+        .alert.alert-info
+          This group is private and membership is by invitation only. Please contact the owners of the organization if you would like to be added to this group.
     - if group.nil? || group.member?(user)
       .row
         .alert.alert-info
