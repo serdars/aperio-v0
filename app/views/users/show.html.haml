@@ -1,14 +1,27 @@
 .row
   .col-md-offset-1.col-md-10
+    %h4.text-primary
+      #{@user.email}
+
+    %ul.list-unstyled
+      %li
+        Member since #{l @user.created_at, format: :short}
+      %li
+        Member of #{@user.organizations.count} Organizations & #{@user.groups.count} Groups
+      %li
+        Started #{@user.conversations.count} Conversations
+      %li
+        Posted #{@user.messages.count} Messages
+
     %ul.nav.nav-tabs
-      %li{:class => ("active" if @tab == "notifications")}
-        %a{:href => "#notifications", "data-toggle" => "tab"}
-          Notifications
       %li{:class => ("active" if @tab == "timeline")}
         %a{:href => "#timeline", "data-toggle" => "tab"}
           Timeline
+      %li{:class => ("active" if @tab == "notifications")}
+        %a{:href => "#notifications", "data-toggle" => "tab"}
+          Notifications
 
-    .tab-content.pane-frame
+    .tab-content
       .tab-pane.pane#notifications{:class => ("active" if @tab == "notifications")}
         .row
           .col-md-offset-1.col-md-10

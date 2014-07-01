@@ -8,7 +8,7 @@
         %a{:href => "#login", "data-toggle" => "tab"}
           Login
 
-    .tab-content.pane-frame
+    .tab-content
       .tab-pane.active.pane#register
         = form_for @user, html: { class: "form-horizontal" } do |f|
           .form-group
