@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many :conversations
   has_many :messages
   has_many :notifications
+  has_many :actions
 
   acts_as_authentic do |c|
     c.validate_login_field = false

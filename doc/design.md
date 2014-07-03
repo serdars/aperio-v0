@@ -59,10 +59,10 @@
 * Mobile organization page
 * "This group is private and you can't see the conversations."
 * Conversation page doesn't post message if not signed in.
+* User Profile Page: (looks like organization page)
+  * Notifications doesn't include email but can be more generic like X wanted to join this group
+  * Separate notifications from profile
 * **TODO**
-  * User Profile Page: (looks like organization page)
-    * Notifications doesn't include email but can be more generic like X wanted to join this group
-    * Separate notifications from profile
   * Mobile conversation page
   * Mobile start conversation page
   * Notification count bug fixes

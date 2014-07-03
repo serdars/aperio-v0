@@ -14,15 +14,16 @@
         Posted #{@user.messages.count} Messages
 
     %ul.nav.nav-tabs
-      %li{:class => ("active" if @tab == "timeline")}
-        %a{:href => "#timeline", "data-toggle" => "tab"}
-          Timeline
-      %li{:class => ("active" if @tab == "notifications")}
+      %li{:class => ("active" unless @user.notifications.empty?)}
         %a{:href => "#notifications", "data-toggle" => "tab"}
           Notifications
+          = render partial: "shared/badge", locals: {count: @user.notifications.count}
+      %li{:class => ("active" if @user.notifications.empty?)}
+        %a{:href => "#timeline", "data-toggle" => "tab"}
+          Timeline
 
     .tab-content
-      .tab-pane.pane#notifications{:class => ("active" if @tab == "notifications")}
+      .tab-pane.pane#notifications{:class => ("active" unless @user.notifications.empty?)}
         - if @user.notifications.empty?
           .alert.alert-info
             Woohoo. Congratulations. No unread notifications.
@@ -62,7 +63,27 @@
                       %a{:href => conversation_path(conversation)}
                         #{conversation.title}
 
-      .tab-pane.pane#timeline{:class => ("active" if @tab == "timeline")}
-        .row
-          .col-md-offset-1.col-md-10
-            Timeline info to come
+      .tab-pane.pane#timeline{:class => ("active" if @user.notifications.empty?)}
+        %ul.list-group
+          - @user.actions.where(action_type: [Action::Type::JOIN_GROUP, Action::Type::START_CONVERSATION]).each do |action|
+            %li.list-group-item
+              - if action.action_type == Action::Type::JOIN_GROUP
+                Joined
+                %a{:href => organization_path(action.actionable.organization, group: action.actionable)}
+                  #{action.actionable.name}
+                Group of
+                %a{:href => organization_path(action.actionable.organization)}
+                  #{action.actionable.organization.name}
+              - else
+                Started
+                %a{:href => conversation_path(action.actionable)}
+                  #{action.actionable.title}
+                in
+                %a{:href => organization_path(action.actionable.group.organization, group: action.actionable.group)}
+                  #{action.actionable.group.name}
+                Group of
+                %a{:href => organization_path(action.actionable.group.organization)}
+                  #{action.actionable.group.organization.name}
+
+              %small
+                = l action.created_at, format: :short
