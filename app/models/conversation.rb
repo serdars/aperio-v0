@@ -5,8 +5,19 @@ class Conversation < ActiveRecord::Base
   has_many :messages
 
   after_destroy :clean_notifications
+  after_create :capture_action
 
   def clean_notifications
-    Notification.where(notifiable_type: "Conversation", notifiable_id: id).destroy_all
+    Notification.where(conversation: self).destroy_all
   end
+
+  protected
+    def capture_action
+      Action.new({
+        user: user,
+        action_type: Action::Type::START_CONVERSATION,
+        actionable: self
+      }).save!
+    end
+
 end

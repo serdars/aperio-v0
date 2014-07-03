@@ -16,31 +16,21 @@ class User < ActiveRecord::Base
     groups.map{|g| g.organization}.uniq
   end
 
-  def conversation_notification_count_by_org
-    collection = { }
-
-    organizations.each do |org|
-      collection[org] = conversation_notifications(org).count
-    end
-
-    collection
+  def has_notification?(conversation: conversation)
+    !Notification.where(user:self, conversation: conversation).empty?
   end
 
-  def conversation_notifications(org = nil)
-    if org
-        Notification.where(user: self, organization: org, notifiable_type: "Conversation")
+  def conversation_notifications(group: group = nil)
+    if group.nil?
+      Notification.where(user:self).where("notifications.conversation_id IS NOT NULL")
     else
-      Notification.where(user: self, notifiable_type: "Conversation")
+      Notification.where(user:self, group: group).where("notifications.conversation_id IS NOT NULL")
     end
   end
 
-  def group_conversation_notifications(group)
-    notifications = [ ]
-    conversation_notifications(group.organization).each do |notification|
-      notifications << notification if notification.notifiable.group == group
-    end
-    notifications
-  end
+
+
+  ## TODO: Do we really need these methods?
 
   def memberships_by_org
     collection = { }

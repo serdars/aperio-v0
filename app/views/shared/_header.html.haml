@@ -25,7 +25,7 @@
     #inbox-orgs.row.row-offcanvas.row-offcanvas-right
       .sidebar-offcanvas
         .list-group
-          - current_user.conversation_notification_count_by_org.each do |organization, count|
+          - current_user.notifications.group_by{|n| n.organization}.each do |organization, notifications|
             %a.list-group-item{:href => organization_path(organization)}
-              = render partial: "shared/badge", locals: {count: count}
+              = render partial: "shared/badge", locals: {count: notifications.count}
               #{organization.name}

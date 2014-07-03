@@ -2,20 +2,15 @@ class Message < ActiveRecord::Base
   belongs_to :user
   belongs_to :conversation
 
-  after_create :notify_users
+  after_create :capture_action
 
   protected
-    def notify_users
-      conversation.group.users.each do |group_user|
-        if group_user != user
-          Notification.new({
-            user: group_user,
-            organization: conversation.group.organization,
-            subject: user,
-            action: "post_message",
-            notifiable: conversation
-          }).save!
-        end
-      end
+    def capture_action
+      Action.new({
+        user: user,
+        action_type: Action::Type::POST_MESSAGE,
+        actionable: conversation,
+        data: { message_id: self.id }.to_json
+      }).save!
     end
 end
