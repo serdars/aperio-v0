@@ -62,10 +62,14 @@
 * User Profile Page: (looks like organization page)
   * Notifications doesn't include email but can be more generic like X wanted to join this group
   * Separate notifications from profile
-* **TODO**
+  * Mobile show org page action buttons & org headline alignment.
   * Mobile conversation page
+* **TODO**
   * Mobile start conversation page
-  * Notification count bug fixes
+  * Notifications count / marking as read bug fixes.
+  * Notifications page more color in All Notifications & Org Name list group items.
+  * Mobile accessibility bug fixes.
+  * Inbox doesn't show up when there are no notifications.
   * Welcome Page:
     * Branding & Vision
     * Value proposition & action for organizations & people

@@ -1,11 +1,15 @@
 .list-group-item
-  %h5.list-group-item-heading
-    %a{:href => user_path(message.user)}
-      #{message.user.email}
-    %small
-      posted on #{l message.created_at, format: :short}
+  %ul.list-unstyled
+    %li
+      %p
+        = message.body
+    %li
+      %small
+        %a{:href => user_path(message.user)}
+          #{message.user.email}
+        posted on #{l message.created_at, format: :short}
     - if message.user == current_user || message.conversation.group.organization.admin?(current_user)
-      %button.btn.btn-info.btn-sm.pull-right.a-delete-post{:type => "submit", :title => "Delete Post", :data => {toggle: "tooltip", container: 'body', id: message.id, conversation: message.conversation.id} }
-        %i.fa.fa-lg.fa-trash-o
-  %p.list-group-item-text
-    = message.body
+      %li
+      %button.btn.btn-default.btn-xs.a-delete-post{:type => "submit", :title => "Delete Post", :data => {toggle: "tooltip", container: 'body', id: message.id, conversation: message.conversation.id} }
+        %i.fa.fa-trash-o
+        Delete Post

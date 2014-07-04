@@ -21,9 +21,7 @@
             %button.btn.btn-primary.btn-lg{:type => "submit", :title => "Join Group", :data => {toggle: "tooltip"}}
               Join Group
 - else
-  .list-group
+  .ap-top-space.list-group
     - conversations.each do |conversation|
-      %a.list-group-item{:href => conversation_path(conversation), :class => ("list-group-item-info" if user.has_notification?(conversation: conversation))}
-        = render partial: "conversations/header", locals: {conversation: conversation}
-        %p.list-group-item-text
-          #{conversation.messages[0].body[0..256]} #{"..." if conversation.messages[0].body.length > 256 }
+      %a.list-group-item{:href => conversation_path(conversation), :class => ("list-group-item-info" if current_user.has_notification?(conversation: conversation))}
+        = render partial: "conversations/header", locals: {conversation: conversation, preview: true}

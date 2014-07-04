@@ -47,7 +47,7 @@ $ () ->
     }
 
   $(".messages").on "click", ".a-delete-post", (event) ->
-    launchAlert "You are about to delete a message. <br> Are you sure?", (message) ->
+    launchAlert "You are about to delete a message. Are you sure?", (message) ->
       $.ajax {
         url: '/conversations/' + $(message).data("conversation") + ".json"
         context: message
@@ -62,9 +62,9 @@ $ () ->
       }
     , this
 
-  $(".delete-conversation-btn").click (event) ->
+  $(".ap-delete-conversation").click (event) ->
     event.preventDefault()
-    launchAlert "You are about to delete a conversation. <br> Are you sure?", (deleteButton) ->
+    launchAlert "You are about to delete a conversation. Are you sure?", (deleteButton) ->
       $(deleteButton).parent().submit()
     , this
     false
