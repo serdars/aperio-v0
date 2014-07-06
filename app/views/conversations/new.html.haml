@@ -1,27 +1,27 @@
-.row
-  .col-md-offset-1.col-md-10
+.row.ap-top-space
+  .col-md-offset-1.col-md-10.col-xs-12
     .list-group-item
-      %h4.list-group-item-heading
-        .row
-          .col-md-12
-            .input-group
-              .input-group-btn
-                %a.btn.btn-primary{:href => organization_path(@organization)}
-                  #{@organization.name}
-                %button.btn.btn-primary.dropdown-toggle.a-group-selection{:type => "button", :data => {toggle: "dropdown", id: @organization.default_group.id, name: @organization.default_group.name}}
-                  %span.a-selected-group-name
-                    #{@organization.default_group.name}
-                  %span.caret
-                %ul.dropdown-menu.dropdown-menu-right{:role => "menu"}
-                  - @organization.groups.each do |group|
-                    - if group.member?(current_user)
-                      %li
-                        %a.a-select-group{:href => "#", :data => {id: group.id, name: group.name}}
-                          #{group.name}
-              %input.form-control{:id => "title", :placeholder => "Title", :type => "text"}
+      Posting to
+      .btn-group
+        %button.btn.btn-primary.btn-xs.dropdown-toggle.a-group-selection{:type => "button", :data => {toggle: "dropdown", id: @organization.default_group.id, name: @organization.default_group.name}}
+          %span.a-selected-group-name
+            #{@organization.default_group.name}
+          %span.caret
+        %ul.dropdown-menu.dropdown-menu-right{:role => "menu"}
+          - @organization.groups.each do |group|
+            - if group.member?(current_user)
+              %li
+                %a.a-select-group{:href => "#", :data => {id: group.id, name: group.name}}
+                  #{group.name}
+      group of
+      %a.btn.btn-xs.btn-primary{:href => organization_path(@organization)}
+        #{@organization.name}
+      %br
+      .ap-top-space
+        %input.form-control{:id => "title", :placeholder => "Title", :type => "text"}
     .list-group-item
       %p.list-group-item-text
-        %textarea.form-control.no-resize{:id => "message", :placeholder => "Type your message here...", :rows => "15"}
+        %textarea.form-control.no-resize{:id => "message", :placeholder => "Type your message here...", :rows => "5"}
     .list-group-item
       %button.center-block.btn.btn-primary.btn-lg.a-post-conversation{:type => "button"}
         Post

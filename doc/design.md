@@ -52,9 +52,6 @@
 * Users shouldn't see private group related things.
 
 # Milestone 4: Mobile
-
-## Pages
-* **DONE**
 * Mobile organizations page
 * Mobile organization page
 * "This group is private and you can't see the conversations."
@@ -64,12 +61,13 @@
   * Separate notifications from profile
   * Mobile show org page action buttons & org headline alignment.
   * Mobile conversation page
-* **TODO**
+  * Inbox doesn't show up when there are no notifications.
   * Mobile start conversation page
+
+* **TODO**
   * Notifications count / marking as read bug fixes.
   * Notifications page more color in All Notifications & Org Name list group items.
   * Mobile accessibility bug fixes.
-  * Inbox doesn't show up when there are no notifications.
   * Welcome Page:
     * Branding & Vision
     * Value proposition & action for organizations & people

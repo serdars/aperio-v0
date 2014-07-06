@@ -1,5 +1,8 @@
 .row
-  .col-md-offset-1.col-md-10
+  .visible-xs
+    .alert.alert-info
+      Organization management is only available on laptops. Please visit aperio from your laptop in order to manage your organization.
+  .col-md-offset-1.col-md-10.hidden-xs
     %h2
       %a{:href => organization_path(@organization)}
         = @organization.name

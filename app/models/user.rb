@@ -29,19 +29,4 @@ class User < ActiveRecord::Base
     end
   end
 
-
-
-  ## TODO: Do we really need these methods?
-
-  def memberships_by_org
-    collection = { }
-
-    memberships.each do |membership|
-      collection[membership.group.organization] ||= [ ]
-      collection[membership.group.organization] << membership
-    end
-
-    collection
-  end
-
 end
