@@ -8,11 +8,11 @@
         %li
           %a{:href => user_path(current_user, tab: "timeline"), :title => current_user.email, :data => {toggle: "tooltip", placement: "bottom"}}
             %i.fa.fa-lg.fa-user
-            = render partial: "shared/badge", locals: {count: current_user.notifications.count}
+            = render partial: "shared/badge", locals: {count: current_user.notification_count}
         %li
           %a{:href => "#", :title => "Inbox", :data => {toggle: "offcanvas", target: "#inbox-orgs", tooltip: "tooltip", placement: "bottom"}}
             %i.fa.fa-lg.fa-inbox
-            = render partial: "shared/badge", locals: {count: current_user.conversation_notifications.count}
+            = render partial: "shared/badge", locals: {count: current_user.notification_count(type: :conversation)}
         %li
           %a.ap-logout{:href => "#", :title => "Sign out", :data => {toggle: "tooltip", placement: "bottom"}}
             %i.fa.fa-lg.fa-sign-out
@@ -27,5 +27,5 @@
         .list-group
           - current_user.organizations.each do |organization|
             %a.list-group-item{:href => organization_path(organization)}
-              = render partial: "shared/badge", locals: {count: current_user.notifications.where(organization: organization).count}
+              = render partial: "shared/badge", locals: {count: current_user.notification_count(type: :conversation, organization: organization)}
               #{organization.name}

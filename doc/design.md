@@ -63,10 +63,10 @@
   * Mobile conversation page
   * Inbox doesn't show up when there are no notifications.
   * Mobile start conversation page
-
-* **TODO**
   * Notifications count / marking as read bug fixes.
   * Notifications page more color in All Notifications & Org Name list group items.
+
+* **TODO**
   * Mobile accessibility bug fixes.
   * Welcome Page:
     * Branding & Vision

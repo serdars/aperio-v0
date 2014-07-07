@@ -55,7 +55,7 @@
             %a.list-group-item{:href => organization_path(@organization, group: group), :class => ("active" if @group == group)}
               = group.name
               - if group.member?(current_user)
-                = render partial: "shared/badge", locals: {count: current_user.conversation_notifications(group: group).count}
+                = render partial: "shared/badge", locals: {count: current_user.notification_count(type: :conversation, group: group)}
                 .pull-right
                   %i.fa.fa-lg.fa-check-square-o{:title => "You are a member.", :data => {toggle: "tooltip"}}
               - if !group.member?(current_user) && !group.private

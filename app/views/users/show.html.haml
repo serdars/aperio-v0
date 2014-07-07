@@ -17,7 +17,7 @@
       %li{:class => ("active" unless @user.notifications.empty?)}
         %a{:href => "#notifications", "data-toggle" => "tab"}
           Notifications
-          = render partial: "shared/badge", locals: {count: @user.notifications.count}
+          = render partial: "shared/badge", locals: {count: @user.notification_count}
       %li{:class => ("active" if @user.notifications.empty?)}
         %a{:href => "#timeline", "data-toggle" => "tab"}
           Timeline
@@ -29,24 +29,24 @@
             Woohoo. Congratulations. No unread notifications.
         - else
           %ul.list-group
-            %li.list-group-item
-              %a.mark-all-notifications{:href => "#", :title => "Mark all as read", :data => {toggle: "tooltip", ids: @user.notifications.map{|a| a.id}} }
+            %li.list-group-item.list-group-item-success
+              %a.mark-all-notifications{:href => "#", :title => "Mark all notifications as read", :data => {toggle: "tooltip", ids: @user.notifications.map{|a| a.id}} }
                 %i.fa.fa-check.fa-2x
               All Notifications
-              = render partial: "shared/badge", locals: {count: @user.notifications.count}
+              = render partial: "shared/badge", locals: {count: @user.notification_count}
             - @user.notifications.group_by{|n| n.organization}.each do |organization, notifications|
-              %li.list-group-item
-                %a.mark-all-notifications{:href => "#", :title => "Mark all as read", :data => {toggle: "tooltip", ids: @user.notifications.map{|a| a.id}} }
+              %li.list-group-item.list-group-item-info
+                %a.mark-org-notifications{:href => "#", :title => "Mark this organization's notifications as read", :data => {toggle: "tooltip", ids: notifications.map{|a| a.id}, orgid: organization.id }}
                   %i.fa.fa-check.fa-2x
                 %a{:href => organization_path(organization)}
                   #{organization.name}
-                = render partial: "shared/badge", locals: {count: notifications.count}
+                = render partial: "shared/badge", locals: {count: @user.notification_count(organization: organization)}
               - notifications.group_by{|n| n.conversation}.each do |conversation, notifications|
                 -# Conversation == nil means notifications are special
                 - if conversation.nil?
                   - notifications.sort_by{|n| n.created_at}.each do |notification|
                     %li.list-group-item
-                      %a.mark-notification{:href => "#", :title => "Mark as read", :data => {toggle: "tooltip", id: notification.id} }
+                      %a.mark-notification{:href => "#", :title => "Mark notification as read", :data => {toggle: "tooltip", id: notification.id, organization: organization.id} }
                         %i.fa.fa-check
                       -# This is a JOIN_GROUP action. Should handle better when we have more actions
                       #{notification.action.user.email} has joined
@@ -57,7 +57,7 @@
                 - else
                   - notifications.group_by{|n| n.conversation}.each do |conversation, notifications|
                     %li.list-group-item
-                      %a.mark-notification{:href => "#", :title => "Mark as read", :data => {toggle: "tooltip", ids: notifications.map{|n| n.id}} }
+                      %a.mark-notification{:href => "#", :title => "Mark notification as read", :data => {toggle: "tooltip", ids: notifications.map{|n| n.id}, organization: organization.id} }
                         %i.fa.fa-check
                       #{notifications.map{|n| n.action.user.email}.uniq.join(" ")} has posted to
                       %a{:href => conversation_path(conversation)}

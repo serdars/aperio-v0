@@ -29,4 +29,40 @@ class User < ActiveRecord::Base
     end
   end
 
+  def notification_count(type: type = nil, organization: organization = nil, group: group = nil)
+    notifications = Notification.where(user:self)
+
+    # Check if group of organization is specified
+    if group
+      notifications = notifications.where(group: group)
+    elsif organization
+      notifications = notifications.where(organization: organization)
+    end
+
+    # type can be :group or :conversation
+    if type
+      case type
+      when :group
+        notifications = notifications.where("notifications.conversation_id IS NOT NULL")
+      when :conversation
+        notifications = notifications.where("notifications.conversation_id IS NOT NULL")
+      else
+        puts "Unknown notification type: #{type}"
+      end
+    end
+
+    # to calculate the count we group notifications by conversation in order to
+    # filter out similar notifications
+    count = 0
+    notifications.group_by{|n| n.conversation}.each do |conversation, notifications|
+      if conversation.nil?
+        count += notifications.count
+      else
+        count += 1
+      end
+    end
+
+    count
+  end
+
 end

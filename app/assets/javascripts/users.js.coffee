@@ -24,10 +24,16 @@ $ () ->
     muteNotification this
     deleteNotifications [ $(this).data("id") ]
 
-    # Delete the notification
+  $(".mark-org-notifications").click (event) ->
+    event.preventDefault()
+    muteNotification this
+    muteNotification "[data-organization='" + $(this).data("orgid") + "']"
+    deleteNotifications $(this).data("ids")
+
 
   $(".mark-all-notifications").click (event) ->
     event.preventDefault()
+    muteNotification ".mark-org-notifications"
     muteNotification ".mark-notification"
     muteNotification this
     deleteNotifications $(this).data("ids")
