@@ -65,12 +65,13 @@
   * Mobile start conversation page
   * Notifications count / marking as read bug fixes.
   * Notifications page more color in All Notifications & Org Name list group items.
-
-* **TODO**
-  * Mobile accessibility bug fixes.
   * Welcome Page:
     * Branding & Vision
     * Value proposition & action for organizations & people
+
+* **TODO**
+  * Bug bash (web - mobile)
+  * Contact the guy in Tech4Good
 
 # FUTURE
 

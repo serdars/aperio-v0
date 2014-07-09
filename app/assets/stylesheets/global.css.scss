@@ -25,10 +25,6 @@ body {
   margin-left: 10px;
 }
 
-.indent-left {
-  margin-left: 50px;
-}
-
 .list-group-item .badge {
   float: none;
 }
@@ -40,4 +36,22 @@ body {
 
 .ap-top-space {
   padding-top: 10px;
+}
+
+.jumbotron {
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.ap-advertise {
+  font-size: 16px;
+}
+
+.ap-advertise-header {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.ap-advertise-icon {
+  margin: 5px;
 }

@@ -1,18 +1,49 @@
-.row
-  .col-md-offset-2.col-md-8
+.row.ap-top-space
+  .col-md-offset-2.col-md-8.col-xs-12
     .jumbotron
-      %h1
-        aperio:
-        %small
-          (v)to open or disclose; (n)visible, transparent
-      %p.indent-left
-        Engage meaningfully with your volunteers
-      %p.indent-left
-        Increase productivity and reach of your organization
-      %p.indent-left
-        Find other individuals or organizations that are doing something about the causes that you believe in
-      %p.indent-left
-        %a.btn.btn-primary.btn-lg{:href => organizations_path()}
-          Discover the organizations on aperio
-        %a.btn.btn-primary.btn-lg{:href => new_organization_path()}
-          Put your Non Profit on aperio
+      %center
+        %h1
+          a·pe·rio:
+        %p
+          (verb) to open, disclose
+        %p
+          (noun) visible, transparent
+.row
+  .col-md-offset-2.col-md-4.col-xs-12
+    .thumbnail
+      .caption
+        %h3.text-info.ap-advertise-header
+          Individuals
+        %p
+          %ul.list-unstyled.ap-advertise
+            %li
+              .pull-left.ap-advertise-icon
+                %i.fa.fa-search-plus.fa-2x
+              Find organizations who need your help
+              .clearfix
+            %li
+              .pull-left.ap-advertise-icon
+                %i.fa.fa-signal.fa-2x
+              Start contributing to the causes you believe in now!
+              .clearfix
+          %a.btn.btn-primary{:href => organizations_path()}
+            Discover the Organizations
+  .col-md-4.col-xs-12
+    .thumbnail
+      .caption
+        %h3.text-info.ap-advertise-header
+          Organizations
+        %p
+          %ul.list-unstyled.ap-advertise
+            %li
+              .pull-left.ap-advertise-icon
+                %i.fa.fa-users.fa-2x
+              Engage meaningfully with your members
+              .clearfix
+            %li
+              .pull-left.ap-advertise-icon
+                %i.fa.fa-cubes.fa-2x
+              Increase productivity and reach of your organization
+              .clearfix
+          %a.btn.btn-primary{:href => new_organization_path()}
+            Try Aperio
