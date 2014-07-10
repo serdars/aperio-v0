@@ -43,6 +43,7 @@
           - @group.users.each do |user|
             %tr
               %td
-                = user.email
+                %a{:href => user_path(user)}
+                  #{user.email}
               %td
                 = "Joined at #{l membership(@group, user).created_at, format: :short}"

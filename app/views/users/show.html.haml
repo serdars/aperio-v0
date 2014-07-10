@@ -78,8 +78,11 @@
                   #{action.actionable.organization.name}
               - else
                 Started
-                %a{:href => conversation_path(action.actionable)}
-                  #{action.actionable.title}
+                - if can_view_conversation?(action.actionable, current_user)
+                  %a{:href => conversation_path(action.actionable)}
+                    #{action.actionable.title}
+                - else
+                  a conversation
                 in
                 %a{:href => organization_path(action.actionable.group.organization, group: action.actionable.group)}
                   #{action.actionable.group.name}

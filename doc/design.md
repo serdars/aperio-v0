@@ -71,6 +71,7 @@
 
 * **TODO**
   * Bug bash (web - mobile)
+    * Adding a member to a group adds the current user when he is not a member
   * Contact the guy in Tech4Good
 
 # FUTURE

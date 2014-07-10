@@ -1,25 +1,11 @@
 - if conversations.empty?
-  - if organization.member?(user)
-    - if group.private && !group.member?(current_user)
-      .row.ap-top-space
-        .alert.alert-info
-          This group is private and membership is by invitation only. Please contact the owners of the organization if you would like to be added to this group.
-    - if group.nil? || group.member?(user)
-      .row.ap-top-space
-        .alert.alert-info
-          There are no conversations yet in this group.
-        %center
-          %a.btn.btn-primary.btn-lg{:href => new_conversation_path(organization: organization.id)}
-            Start a Conversation
-    - elsif !group.private
-      .row.ap-top-space
-        .alert.alert-info
-          You are not a member of this group yet
-        %center
-          %form.form-inline{:role => "button_to", :action => group_join_path(group), :method => :post}
-            %input{:name => "authenticity_token", :type => "hidden", :value => form_authenticity_token}
-            %button.btn.btn-primary.btn-lg{:type => "submit", :title => "Join Group", :data => {toggle: "tooltip"}}
-              Join Group
+  .ap-top-space
+    .alert.alert-info
+      There are no conversations yet in this group.
+    - if @group.member?(current_user)
+      %center
+        %a.btn.btn-primary.btn-lg{:href => new_conversation_path(organization: @organization.id)}
+          Start a Conversation
 - else
   .ap-top-space.list-group
     - conversations.each do |conversation|
