@@ -49,7 +49,7 @@
                     - notifications.sort_by{|n| n.created_at}.each do |notification|
                       %li.list-group-item
                         %a.mark-notification{:href => "#", :title => "Mark notification as read", :data => {toggle: "tooltip", id: notification.id, organization: organization.id} }
-                          %i.fa.fa-check
+                          %i.fa.fa-check.fa-lg
                         -# This is a JOIN_GROUP action. Should handle better when we have more actions
                         #{notification.action.user.email} has joined
                         %a{:href => organization_path(organization, group: notification.action.actionable)}

@@ -4,7 +4,7 @@
       %li
         .btn-group.pull-right.a-corner-action.visible-xs
           %a.btn.btn-info.btn-sm.ap-collapse-org-info{:href => "#", :title => "Show / Hide organization info", :data => {tooltip: "tooltip", container: 'body', toggle: "collapse", target: "#organization-info"} }
-            %i.fa.fa-chevron-down.fa-lg
+            %i.fa.fa-chevron-up.fa-lg
           - if can_start_conversation?(@group, current_user)
             %a.btn.btn-info.btn-sm{:href => new_conversation_path(organization: @organization.id), :title => "Start Conversation", :data => {toggle: "tooltip", container: 'body'} }
               %i.fa.fa-pencil.fa-lg
@@ -12,7 +12,7 @@
             %i.fa.fa-group.fa-lg
         .btn-group.pull-right.a-corner-action.visible-sm.visible-md.visible-lg
           %a.btn.btn-info.btn-sm.ap-collapse-org-info{:href => "#", :title => "Show / Hide organization info", :data => {tooltip: "tooltip", container: 'body', toggle: "collapse", target: "#organization-info"} }
-            %i.fa.fa-chevron-down.fa-lg
+            %i.fa.fa-chevron-up.fa-lg
           - if can_start_conversation?(@group, current_user)
             %a.btn.btn-info.btn-sm{:href => new_conversation_path(organization: @organization.id), :title => "Start Conversation", :data => {toggle: "tooltip", container: 'body'} }
               %i.fa.fa-pencil.fa-lg
@@ -25,7 +25,7 @@
           %small
             #{@group.name} - #{@group.memberships.count} members
       %li
-        %ul.list-unstyled#organization-info.collapse
+        %ul.list-unstyled#organization-info.collapse.in
           %li
             %ul.list-inline.label-list
               - @organization.tags.each do |tag|
@@ -47,7 +47,7 @@
               .alert.alert-info
                 This group is private and membership is by invitation only. Please contact the owners of the organization if you would like to be added to this group.
           - else
-            = render partial: "conversations/index", locals: { conversations: filter_conversations(@organization.conversations, group: @group, user: current_user)}
+            = render partial: "conversations/index", locals: { conversations: @organization.conversations.where(group: @group)}
         - else
           - if @organization.member?(current_user)
             .row.ap-top-space
@@ -55,18 +55,18 @@
                 .alert.alert-info
                   You are not a member of this group yet
                 %center
-                  %form.form-inline{:role => "button_to", :action => group_join_path(group), :method => :post}
+                  %form.form-inline{:role => "button_to", :action => group_join_path(@group), :method => :post}
                     %input{:name => "authenticity_token", :type => "hidden", :value => form_authenticity_token}
                     %button.btn.btn-primary.btn-lg{:type => "submit", :title => "Join Group", :data => {toggle: "tooltip"}}
                       Join Group
-              = render partial: "conversations/index", locals: { conversations: filter_conversations(@organization.conversations, group: @group, user: current_user)}
+              = render partial: "conversations/index", locals: { conversations: @organization.conversations.where(group: @group)}
           - else
             .row.ap-top-space
               .alert.alert-info
                 You are not a member of this organization yet
               %center
                 = render partial: "shared/button_to", locals: {target: group_join_path(@organization.default_group), value: "Join Organization", icon: "", block: false, title: "Join Organization"}
-              = render partial: "conversations/index", locals: { conversations: filter_conversations(@organization.conversations, group: @group, user: current_user)}
+              = render partial: "conversations/index", locals: { conversations: @organization.conversations.where(group: @group)}
   .mo-sidebar-offcanvas.col-xs-6.col-sm-4.col-md-3
     %h3
       Groups

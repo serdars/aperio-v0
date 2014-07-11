@@ -25,7 +25,11 @@
     #inbox-orgs.row.row-offcanvas.row-offcanvas-right
       .sidebar-offcanvas
         .list-group
-          - current_user.organizations.each do |organization|
-            %a.list-group-item{:href => organization_path(organization)}
-              = render partial: "shared/badge", locals: {count: current_user.notification_count(type: :conversation, organization: organization)}
-              #{organization.name}
+          - if current_user.organizations.empty?
+            %a.list-group-item{:href => organizations_path()}
+              No organizations. Find one...
+          - else
+            - current_user.organizations.each do |organization|
+              %a.list-group-item{:href => organization_path(organization)}
+                = render partial: "shared/badge", locals: {count: current_user.notification_count(type: :conversation, organization: organization)}
+                #{organization.name}
