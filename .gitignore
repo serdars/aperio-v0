@@ -10,3 +10,4 @@
 /tmp
 
 chef-repo/.kitchen/
+.kitchen/
