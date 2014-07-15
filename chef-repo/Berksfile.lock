@@ -1,0 +1,6 @@
+DEPENDENCIES
+  aperio
+    path: cookbooks/aperio
+
+GRAPH
+  aperio (0.1.0)

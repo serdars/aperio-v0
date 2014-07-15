@@ -1,0 +1,16 @@
+driver:
+  name: vagrant
+  customize:
+    memory: 2048
+    cpus: 4
+
+provisioner:
+    name: chef_zero
+    require_chef_omnibus: true
+
+platforms:
+  - name: ubuntu-12.04
+
+suites:
+  - name: aperio-staging
+    run_list: aperio::app
