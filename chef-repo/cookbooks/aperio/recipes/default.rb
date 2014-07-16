@@ -8,5 +8,6 @@
 #
 
 include_recipe "aperio::base"
+include_recipe "aperio::db"
 include_recipe "aperio::app"
 include_recipe "aperio::web"

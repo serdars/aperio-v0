@@ -7,10 +7,18 @@
 #
 #
 
+app = {
+  :id => 'aperio',
+  :group => 'aperio',
+  :user => 'aperio'
+}
+
+include_recipe "nginx::default"
+
 #
 # NGINX REGISTRATION
 #
-
+#
 template "#{node['nginx']['dir']}/sites-available/#{app[:id]}" do
   source "#{app[:id]}.conf.erb"
   owner app[:user]

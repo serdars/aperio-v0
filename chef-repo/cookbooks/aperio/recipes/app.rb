@@ -14,7 +14,6 @@
 app = {
   :id => 'aperio',
   :deploy_to => '/srv/aperio',
-  :port => 958,
   :group => 'aperio',
   :user => 'aperio',
   :git_repository => 'https://github.com/serdars/aperio.git'
@@ -86,33 +85,25 @@ config_resources << deploy_revision(app[:id]) do
   revision node[:aperio][:version]
   repository app[:git_repository]
 
+  symlink_before_migrate({})
   symlinks("system" => "public/system", "pids" => "tmp/pids", "log" => "log", "vendor" => "vendor")
   user app[:user]
   deploy_to app[:deploy_to]
   migrate true
-  migration_command "RAILS_ENV=#{node[:aperio][:app_environment]} bundle exec rake db:migrate --trace"
+  migration_command "bundle exec rake db:migrate --trace"
   before_migrate do
-    [
-      ["bundle install", "bundle install --deployment --without test development"]
-    ].each do |name, cmd|
-      execute name do
-        command cmd
-        user app[:user]
-        cwd release_path
-      end
+    execute "bundle install" do
+      command "bundle install --deployment --without test development"
+      user app[:user]
+      cwd release_path
     end
-
   end
 
   before_restart do
-    [
-      ["compile assets", "bundle exec rake assets:precompile"]
-    ].each do |name, cmd|
-      execute name do
-        command cmd
-        user app[:user]
-        cwd "#{app[:deploy_to]}/current"
-      end
+    execute "compile assets" do
+      command "bundle exec rake assets:precompile"
+      user app[:user]
+      cwd release_path
     end
   end
 end
