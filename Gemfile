@@ -16,6 +16,6 @@ gem 'sqlite3'
 gem 'faker', group: :development
 
 # App Server
-# gem 'unicorn'
+gem 'unicorn'
 
 gem "authlogic" # User management

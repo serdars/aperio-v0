@@ -24,7 +24,6 @@ app = {
 #
 
 include_recipe "runit"
-rbenv_gem "unicorn"
 
 user app[:user] do
   action :create
