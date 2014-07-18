@@ -7,11 +7,13 @@ class UserSessionsController < ApplicationController
   end
 
   def create
+    @tab = "login"
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
       redirect_back_or_default root_path
     else
-      render :action => :new
+      @user = User.new
+      render :template => "users/new"
     end
   end
 

@@ -4,11 +4,13 @@ class UsersController < ApplicationController
 
   def new
     # We register and login at the same page
+    @tab = "register"
     @user = User.new
     @user_session = UserSession.new
   end
 
   def create
+    @tab = "register"
     @user = User.new(user_params)
     if @user.save
       redirect_back_or_default root_path

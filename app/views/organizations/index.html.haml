@@ -1,5 +1,10 @@
 .row.ap-top-space
-  - @organizations.each_slice(@organizations.count / 4) do |organizations_group|
-    .col-md-3.col-sm-6
-      - organizations_group.each do |organization|
-        = render partial: "organizations/summary", locals: { organization: organization }
+  - if @organizations.empty?
+    .col-md-offset-2.col-md-8
+      .alert.alert-info
+        Currently there are no organizations on Aperio.
+  - else
+    - @organizations.each_slice(@organizations.count / 4) do |organizations_group|
+      .col-md-3.col-sm-6
+        - organizations_group.each do |organization|
+          = render partial: "organizations/summary", locals: { organization: organization }

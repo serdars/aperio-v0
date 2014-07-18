@@ -1,15 +1,15 @@
 .row.ap-top-space
   .col-md-offset-2.col-md-8
     %ul.nav.nav-tabs
-      %li.active
+      %li{:class => ("active" if @tab == "register")}
         %a{:href => "#register", "data-toggle" => "tab"}
           Register
-      %li
+      %li{:class => ("active" if @tab == "login")}
         %a{:href => "#login", "data-toggle" => "tab"}
           Login
 
     .tab-content
-      .tab-pane.active.pane#register
+      .tab-pane.pane#register{:class => ("active" if @tab == "register")}
         = form_for @user, html: { class: "form-horizontal" } do |f|
           .form-group
             = f.label :email, "Email", class: "col-sm-3 control-label"
@@ -33,7 +33,7 @@
           .form-group
             .col-sm-offset-3.col-sm-9
               = f.submit "Register", class: "btn btn-primary"
-      .tab-pane.pane#login
+      .tab-pane.pane#login{:class => ("active" if @tab == "login")}
         = form_for @user_session, html: { class: "form-horizontal" } do |f|
           .form-group
             = f.label :email, "Email", class: "col-sm-3 control-label"
@@ -43,6 +43,13 @@
             = f.label :password, "Password", class: "col-sm-3 control-label"
             .col-sm-6
               = f.password_field :password, class: "form-control", placeholder: "Password"
+          - unless @user_session.errors.full_messages.empty?
+            .form-group
+              .col-sm-offset-3.col-sm-6.alert.alert-warning
+                %ul.list-unstyled
+                  - @user_session.errors.full_messages.each do |message|
+                    %li
+                      = message
           .form-group
             .col-sm-offset-3.col-sm-9
               = f.submit "Login", class: "btn btn-primary"
