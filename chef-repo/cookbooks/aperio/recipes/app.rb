@@ -40,8 +40,7 @@ directory app[:deploy_to] do
   recursive true
 end
 
-shared_dirs = ["shared", "shared/system", "shared/config", "shared/pids",
-  "shared/log", "shared/vendor"]
+shared_dirs = ["shared", "shared/system", "shared/config", "shared/pids", "shared/log"]
 shared_dirs.each do |dir|
   directory "#{app[:deploy_to]}/#{dir}" do
     owner app[:user]
@@ -50,29 +49,21 @@ shared_dirs.each do |dir|
   end
 end
 
-directory "#{app[:deploy_to]}/vendor" do
-  owner app[:user]
-  group app[:group]
-  mode '0755'
-end
-
 #
 # APP CONFIG
 #
 
-#
-# FUTURE: Required config resources
-#
-
 config_resources = [ ]
+secrets = Chef::EncryptedDataBagItem.load("aperio", "secrets")
 
-# config_resources << template("#{app[:deploy_to]}/shared/config/database.yml") do
-#   source "database.yml.erb"
-#   owner app[:user]
-#   mode "644"
-#
-#   notifies :restart, resources(:service => "nginx"), :delayed
-# end
+config_resources << template("#{app[:deploy_to]}/shared/config/secrets.yml") do
+  source "secrets.yml.erb"
+  owner app[:user]
+  variables({
+    secret_key_base: secrets["secret_key_base"]
+  })
+  mode "644"
+end
 
 #
 # DEPLOY
@@ -85,14 +76,16 @@ config_resources << deploy_revision(app[:id]) do
   repository app[:git_repository]
 
   symlink_before_migrate({})
-  symlinks("system" => "public/system", "pids" => "tmp/pids", "log" => "log", "vendor" => "vendor")
+  symlinks("system" => "public/system", "pids" => "tmp/pids", "log" => "log", "config/secrets.yml" => "config/secrets.yml")
   user app[:user]
   deploy_to app[:deploy_to]
   migrate true
-  migration_command "bundle exec rake db:migrate --trace"
+  # Need pwd here as a workaround because otherwise Chef can't execute the command as a different user (facepalm)
+  migration_command "pwd && RAILS_ENV=#{node[:aperio][:app_environment]} PATH=/opt/rbenv/shims:#{ENV['PATH']} bundle exec rake db:migrate --trace"
   before_migrate do
     execute "bundle install" do
       command "bundle install --deployment --without test development"
+      environment "PATH" => "/opt/rbenv/shims:#{ENV['PATH']}"
       user app[:user]
       cwd release_path
     end
@@ -101,6 +94,10 @@ config_resources << deploy_revision(app[:id]) do
   before_restart do
     execute "compile assets" do
       command "bundle exec rake assets:precompile"
+      environment({
+          "PATH" => "/opt/rbenv/shims:#{ENV['PATH']}",
+          "RAILS_ENV" => node[:aperio][:app_environment]
+        })
       user app[:user]
       cwd release_path
     end
@@ -113,10 +110,10 @@ end
 
 unicorn_config "/etc/unicorn/#{app[:id]}.rb" do
   listen "#{app[:deploy_to]}/current/tmp/#{app[:id]}.sock" => { :backlog => 64 }
-  pid "#{app['deploy_to']}/current/tmp/pids/unicorn.pid"
-  stderr_path "#{app['deploy_to']}/current/log/unicorn.stderr.log"
-  stdout_path "#{app['deploy_to']}/current/log/unicorn.stdout.log"
-  working_directory "#{app['deploy_to']}/current"
+  pid "#{app[:deploy_to]}/current/tmp/pids/unicorn.pid"
+  stderr_path "#{app[:deploy_to]}/current/log/unicorn.stderr.log"
+  stdout_path "#{app[:deploy_to]}/current/log/unicorn.stdout.log"
+  working_directory "#{app[:deploy_to]}/current"
   worker_timeout 120
   preload_app true
   worker_processes 2

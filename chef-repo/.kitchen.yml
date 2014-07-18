@@ -7,6 +7,7 @@ driver:
 provisioner:
     name: chef_zero
     require_chef_omnibus: true
+    encrypted_data_bag_secret_key_path: ".chef/secrets/encrypted_data_bag_secret"
 
 platforms:
   - name: ubuntu-12.04
