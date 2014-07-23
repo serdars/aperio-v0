@@ -5,10 +5,15 @@ class Conversation < ActiveRecord::Base
   has_many :messages
 
   after_destroy :clean_notifications
+  after_destroy :clean_actions
   after_create :capture_action
 
   def clean_notifications
     Notification.where(conversation: self).destroy_all
+  end
+
+  def clean_actions
+    Action.where(actionable: self).destroy_all
   end
 
   protected

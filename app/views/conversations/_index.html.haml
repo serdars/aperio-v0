@@ -9,5 +9,5 @@
 - else
   .ap-top-space.list-group
     - conversations.each do |conversation|
-      %a.list-group-item{:href => conversation_path(conversation), :class => ("list-group-item-info" if current_user.has_notification?(conversation: conversation))}
+      %a.list-group-item{:href => conversation_path(conversation), :class => ("list-group-item-info" if current_user && current_user.has_notification?(conversation: conversation))}
         = render partial: "conversations/header", locals: {conversation: conversation, preview: true}
