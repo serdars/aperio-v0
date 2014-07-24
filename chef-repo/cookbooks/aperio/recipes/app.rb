@@ -40,7 +40,7 @@ directory app[:deploy_to] do
   recursive true
 end
 
-shared_dirs = ["shared", "shared/system", "shared/config", "shared/pids", "shared/log"]
+shared_dirs = ["shared", "shared/system", "shared/config", "shared/pids", "shared/log", "shared/db"]
 shared_dirs.each do |dir|
   directory "#{app[:deploy_to]}/#{dir}" do
     owner app[:user]
@@ -76,7 +76,8 @@ config_resources << deploy_revision(app[:id]) do
   repository app[:git_repository]
 
   symlink_before_migrate({})
-  symlinks("system" => "public/system", "pids" => "tmp/pids", "log" => "log", "config/secrets.yml" => "config/secrets.yml")
+  symlinks("system" => "public/system", "pids" => "tmp/pids", "log" => "log",
+    "config/secrets.yml" => "config/secrets.yml")
   user app[:user]
   deploy_to app[:deploy_to]
   migrate true
