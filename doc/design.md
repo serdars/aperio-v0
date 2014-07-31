@@ -69,6 +69,21 @@
     * Branding & Vision
     * Value proposition & action for organizations & people
 
+# Milestone 5: Shippable MVP
+* Home page final design
+  Refers to: Branding, Mobile functionality, better engagement with transparency, increased
+    productivity, find organizations matching your interests, call to actions
+* About us page
+* Invitations
+  * Invite users page
+  * Send emails to invited users
+  * Login page gets more clear "reason"
+  * Notifications changes (X joined Y org invited by Z)
+  * Notification page changes (Invitations?)
+  * Timeline changes (Invited X to Y)
+  * Helper link renderers for organization, group, user, conversation for consistency
+* End user scenario
+
 # FUTURE
 
 * Search Organizations
