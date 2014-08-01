@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
     def require_user
       unless current_user
         store_location
-        flash[:notice] = "You must be logged in to access this page"
+        flash[:notice] = login_reason
         redirect_to new_user_path
         return false
       end
@@ -42,5 +42,19 @@ class ApplicationController < ActionController::Base
     def redirect_back_or_default(default)
       redirect_to(session[:return_to] || default)
       session[:return_to] = nil
+    end
+
+    def login_reason
+      reasons = {
+        "organizations#new" => "create an account for your organization on Aperio."
+      }
+
+      reason = reasons["#{params[:controller]}##{action_name}"]
+
+      if reason
+        "You need to be logged in in order to #{reason}"
+      else
+        "You must be logged in to access this page."
+      end
     end
 end

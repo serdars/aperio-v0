@@ -31,15 +31,15 @@
               - @organization.tags.each do |tag|
                 %li
                   %span.label.label-info
-                    = tag.name
+                    #{tag.name}
           %li
             %small
               %a{:href => @organization.website}
-                = @organization.website
+                #{@organization.website}
           %li
             #{@organization.summary}
           %li
-            = @organization.description
+            #{@organization.description}
       %li
         - if @group.private
           - if !@group.member?(current_user)

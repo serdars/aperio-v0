@@ -1,10 +1,14 @@
 .row.ap-top-space
+  .col-md-offset-4.col-md-4.col-xs-12
+    %a.btn.btn-info.btn-block.btn-lg{:href => new_organization_path()}
+      Create an organization on Aperio
+.row.ap-top-space
   - if @organizations.empty?
     .col-md-offset-2.col-md-8
       .alert.alert-info
         Currently there are no organizations on Aperio.
   - else
-    - @organizations.each_slice(@organizations.count / 4 + 1) do |organizations_group|
+    - @organizations.each_slice((@organizations.count / 4).ceil) do |organizations_group|
       .col-md-3.col-sm-6
         - organizations_group.each do |organization|
           = render partial: "organizations/summary", locals: { organization: organization }

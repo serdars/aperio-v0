@@ -66,6 +66,6 @@ class OrganizationsController < ApplicationController
 
   protected
     def organization_params
-      params.require(:organization).permit(:name, :description, :website)
+      params.require(:organization).permit(:name, :description, :website, :summary)
     end
 end

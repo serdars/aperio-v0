@@ -84,6 +84,8 @@
     * Timeline changes (Invited X to Y)
     * Helper link renderers for organization, group, user, conversation for consistency
   * End user scenario
+    * about us link global?
+    * informative page global?
 
 # FUTURE
 
