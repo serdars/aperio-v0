@@ -16,6 +16,11 @@ body {
   padding-left: 5px;
 }
 
+.ap-vertical-space {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 .a-hide-overflow {
   overflow: hidden;
   text-overflow:ellipsis;
@@ -41,17 +46,5 @@ body {
 .jumbotron {
   padding: 10px;
   margin-bottom: 10px;
-}
-
-.ap-advertise {
-  font-size: 16px;
-}
-
-.ap-advertise-header {
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-
-.ap-advertise-icon {
-  margin: 5px;
+  background-color: inherit;
 }

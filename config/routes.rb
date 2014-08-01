@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root 'global#home'
+  get   'about' => 'global#about', as: :about
 
   resources :user_sessions, only: [ :create ]
   resources :users, only: [ :new, :create, :show ]

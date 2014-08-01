@@ -5,4 +5,8 @@ class GlobalController < ApplicationController
     @organizations = Organization.all
     render
   end
+
+  def about
+    render
+  end
 end
