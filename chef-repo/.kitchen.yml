@@ -16,5 +16,5 @@ suites:
   - name: aperio-staging
     driver:
       network:
-      - ["private_network", {ip: "30.30.30.30"}]
+      - ["private_network", {ip: "31.31.31.31"}]
     run_list: aperio::default
