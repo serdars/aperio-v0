@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby '2.1.4'
 
 gem 'rails', '4.1.1'
 
@@ -11,11 +11,18 @@ gem 'therubyracer',  platforms: :ruby
 gem 'jbuilder', '~> 2.0'
 gem 'haml'
 
+# User Management
+gem "authlogic"
+
 # DB
-gem 'sqlite3'
-gem 'faker', group: :development
+group :development, :test do
+  gem 'sqlite3'
+  gem 'faker'
+end
+
+group :production do
+  gem 'pg'
+end
 
 # App Server
 gem 'unicorn'
-
-gem "authlogic" # User management

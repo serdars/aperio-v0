@@ -20,7 +20,8 @@ Rails.application.configure do
   # config.action_dispatch.rack_cache = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
-  config.serve_static_assets = false
+  # Needed for serving assets on Heroku
+  config.serve_static_assets = true
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
@@ -50,6 +51,9 @@ Rails.application.configure do
 
   # Use a different logger for distributed setups.
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
+
+  # Use STDOUT for Heroku
+  config.logger = Logger.new(STDOUT)
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store

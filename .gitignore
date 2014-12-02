@@ -14,4 +14,3 @@
 chef-repo/.kitchen/
 
 chef-repo/.chef/secrets
-config/secrets.yml
