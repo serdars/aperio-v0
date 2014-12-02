@@ -37,9 +37,9 @@
               %a{:href => @organization.website}
                 #{@organization.website}
           %li
-            #{@organization.summary}
+            #{simple_format(@organization.summary)}
           %li
-            #{@organization.description}
+            #{simple_format(@organization.description)}
       %li
         - if @group.private
           - if !@group.member?(current_user)

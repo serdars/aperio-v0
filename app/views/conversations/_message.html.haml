@@ -2,7 +2,7 @@
   %ul.list-unstyled
     %li
       %p
-        = message.body
+        = simple_format(message.body)
     %li
       %small
         %a{:href => user_path(message.user)}
