@@ -1,8 +1,0 @@
-source "https://api.berkshelf.com"
-
-cookbook "aperio", :path => "cookbooks/aperio"
-
-cookbook "rbenv",   "~> 1.7"
-cookbook "runit",   "~> 1.5"
-cookbook "unicorn", "~> 1.3"
-cookbook "nginx",   "~> 2.7"
